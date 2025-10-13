@@ -8,22 +8,54 @@ import "../assets/css/buttons.css"
 import { Font } from 'astro:assets'
 import Image from "astro/components/Image.astro"
 
-import DialogModal from "../components/DialogModal.astro"
 import FooterMain from "../components/FooterMain.astro"
 import HeaderMain from "../components/HeaderMain.astro"
 
-// tua locandina come background (puoi cambiarla)
+// background hero
 import bg_image from "../assets/theme-images/locandina.webp"
 
-// Props: passate dalla pagina
+// Props dalla pagina
 const { title, description, settings, lang = "es" } = Astro.props
 
-// URL canonico per lingua
+// Canonical per lingua
 const canonicalUrl = settings?.base_url + (lang === "es" ? "/" : `/${lang}/`)
+
+// === CONFIG ===
+const pixelId = import.meta.env.PUBLIC_FB_PIXEL_ID ?? "1227221879138874"
+const BASE_CTA_URL =
+  "https://fenles.com/evento/halloween-fest-estacio-de-franca-barcelona-31-10-2025-estacio-de-franca?src=meta&utm_campaign=hlwnfest2025"
+
+// OG image assoluta
+const ogImage = settings.base_url + settings.social_image
+
+// JSON-LD Event
+const jsonLdEvent = {
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "HLWN FEST Barcelona 2025 – Halloween Party",
+  "startDate": "2025-10-31T19:00:00+02:00",
+  "endDate": "2025-11-01T02:30:00+02:00",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "location": {
+    "@type": "Place",
+    "name": "Estació de França",
+    "address": "Barcelona, Spain"
+  },
+  "image": [ogImage],
+  "description": "Festival di Halloween con concerti, DJ, rumba catalana e un’atmosfera immersiva nel cuore di Barcellona. Biglietti da 10 €.",
+  "offers": {
+    "@type": "AggregateOffer",
+    "lowPrice": "10",
+    "highPrice": "15",
+    "priceCurrency": "EUR",
+    "url": BASE_CTA_URL
+  },
+  "organizer": { "@type": "Organization", "name": "FENLES" }
+}
 ---
 
 <html lang={lang}>
-
   <head>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,11 +82,11 @@ const canonicalUrl = settings?.base_url + (lang === "es" ? "/" : `/${lang}/`)
     <meta property="og:title" content={ title ?? settings.title } />
     <meta property="og:description" content={ description ?? settings.description } />
     <meta property="og:url" content={ canonicalUrl } />
-    <meta property="og:image" content={ settings.base_url + settings.social_image } />
+    <meta property="og:image" content={ ogImage } />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={ title ?? settings.title } />
     <meta name="twitter:description" content={ description ?? settings.description } />
-    <meta name="twitter:image" content={ settings.base_url + settings.social_image } />
+    <meta name="twitter:image" content={ ogImage } />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="manifest" href="/manifest.json" />
@@ -62,35 +94,10 @@ const canonicalUrl = settings?.base_url + (lang === "es" ? "/" : `/${lang}/`)
     <Font cssVariable="--font-inter" preload />
     <Font cssVariable="--font-inter-display" preload />
 
-    <!-- (7) JSON-LD Event -->
-    <script type="application/ld+json" is:inline>
-    {
-      "@context": "https://schema.org",
-      "@type": "Event",
-      "name": "HLWN FEST Barcelona 2025 – Halloween Party",
-      "startDate": "2025-10-31T19:00:00+02:00",
-      "endDate": "2025-11-01T02:30:00+02:00",
-      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-      "eventStatus": "https://schema.org/EventScheduled",
-      "location": {
-        "@type": "Place",
-        "name": "Estació de França",
-        "address": "Barcelona, Spain"
-      },
-      "image": ["{settings.base_url}{settings.social_image}"],
-      "description": "Festival di Halloween con concerti, DJ, rumba catalana e un’atmosfera immersiva nel cuore di Barcellona. Biglietti da 10 €.",
-      "offers": {
-        "@type": "AggregateOffer",
-        "lowPrice": "10",
-        "highPrice": "15",
-        "priceCurrency": "EUR",
-        "url": "https://fenles.com/hlwn?src=meta&utm_campaign=hlwnfest2025"
-      },
-      "organizer": { "@type":"Organization", "name":"FENLES" }
-    }
-    </script>
+    <!-- JSON-LD Event -->
+    <script type="application/ld+json" is:inline>{JSON.stringify(jsonLdEvent)}</script>
 
-    <!-- (3) Meta Pixel -->
+    <!-- Meta Pixel (unico blocco, ID da env o fallback) -->
     <script is:inline>
       !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
       n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
@@ -98,13 +105,14 @@ const canonicalUrl = settings?.base_url + (lang === "es" ? "/" : `/${lang}/`)
       t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
       (window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
 
-      fbq('init', '${import.meta.env.PUBLIC_FB_PIXEL_ID ?? "YOUR_PIXEL_ID"}');
-      fbq('track', 'PageView');
-    </script>
-    <noscript>
-      <img height="1" width="1" style="display:none"
-        src={"https://www.facebook.com/tr?id=" + (import.meta.env.PUBLIC_FB_PIXEL_ID ?? "YOUR_PIXEL_ID") + "&ev=PageView&noscript=1"} />
-    </noscript>
+      fbq('init','1227221879138874');   // <-- ID hardcoded per test
+      fbq('track','PageView');
+      console.log('[PIXEL] init + PageView');
+      </script>
+      <noscript>
+        <img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=1227221879138874&ev=PageView&noscript=1" />
+      </noscript>
   </head>
 
   <body id="top">
@@ -113,7 +121,8 @@ const canonicalUrl = settings?.base_url + (lang === "es" ? "/" : `/${lang}/`)
 
     <!-- bg image -->
     <Image src={ bg_image } alt="" format="avif" height={1080} width={1920}
-      class="absolute min-h-svh object-cover inset-0 bottom-auto -z-1 w-full h-auto opacity-20 mask-b-from-50%" loading="eager" />
+      class="absolute min-h-svh object-cover inset-0 bottom-auto -z-1 w-full h-auto opacity-20 mask-b-from-50%"
+      loading="eager" />
 
     <!-- Header -->
     <HeaderMain settings={ settings } lang={lang} />
@@ -126,8 +135,8 @@ const canonicalUrl = settings?.base_url + (lang === "es" ? "/" : `/${lang}/`)
     <!-- Footer -->
     <FooterMain settings={ settings } />
 
-    <!-- (5) Sticky CTA mobile/desktop -->
-    <a href="https://fenles.com/hlwn?src=meta&utm_campaign=hlwnfest2025"
+    <!-- Sticky CTA (sempre con data-cta) -->
+    <a href={BASE_CTA_URL}
        class="bs-btn fixed bottom-3 right-3 z-50 sm:bottom-4 sm:right-4"
        data-cta aria-label="Compra biglietti">
       { settings.demo?.title ?? "Comprar entradas" }
@@ -135,19 +144,17 @@ const canonicalUrl = settings?.base_url + (lang === "es" ? "/" : `/${lang}/`)
 
     <!-- Spazio per non coprire contenuto su mobile -->
     <style>
-      @media (max-width: 640px){
-        main{ padding-bottom: 72px; }
-      }
+      @media (max-width: 640px){ main{ padding-bottom: 72px; } }
     </style>
 
-    <!-- (2) Pass-through fbclid + normalizza UTM su TUTTE le CTA -->
+    <!-- Pass-through fbclid + normalizza UTM su tutte le CTA -->
     <script is:inline>
       (function () {
         var q = new URLSearchParams(location.search);
         var fbclid = q.get('fbclid');
         document.querySelectorAll('a[data-cta]').forEach(function (a) {
           try {
-            var url = new URL(a.getAttribute('href'), location.origin);
+            var url = new URL(a.getAttribute('href') || '', location.origin);
             if (!url.searchParams.get('src')) url.searchParams.set('src','meta');
             if (!url.searchParams.get('utm_campaign')) url.searchParams.set('utm_campaign','hlwnfest2025');
             if (fbclid) url.searchParams.set('fbclid', fbclid);
@@ -157,13 +164,14 @@ const canonicalUrl = settings?.base_url + (lang === "es" ? "/" : `/${lang}/`)
       })();
     </script>
 
-    <!-- (3) Eventi Pixel: ViewContent + ClickCTA -->
+    <!-- Eventi Pixel: ViewContent + ClickCTA -->
     <script is:inline>
       try { fbq && fbq('track','ViewContent',{content_name:'HLWN Fest Landing'}); } catch(e){}
       document.querySelectorAll('a[data-cta]').forEach(function(a){
+        a.setAttribute('target','_blank'); a.setAttribute('rel','noopener');
         a.addEventListener('click', function(){
           try { fbq && fbq('track','ClickCTA',{href:a.href}); } catch(e){}
-        });
+        }, {passive:true});
       });
     </script>
   </body>

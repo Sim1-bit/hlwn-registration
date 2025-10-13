@@ -19,7 +19,14 @@ import testimonials from "../../data/it/testimonials.json"
 
 const lang = "it"
 
----
+
+const BASE_CTA_URL =
+  "https://fenles.com/evento/halloween-fest-estacio-de-franca-barcelona-31-10-2025-estacio-de-franca?src=meta&utm_campaign=hlwnfest2025";
+
+const CTA_LABEL = (typeof settings !== 'undefined' && settings?.demo?.title)
+  ? settings.demo.title
+  : "Comprar entradas";
+  ---
 
 <Layout
   title={settings.title}
@@ -28,8 +35,9 @@ const lang = "it"
   lang={lang}
   showStickyCta={true}
   showFog={true}
-  ctaHref="https://fenles.com/evento/halloween-fest-estacio-de-franca-barcelona-lista-javier-31-10-2025-estacio-de-franca"
-  ctaLabel={settings.demo.title}
+  ctaHref={BASE_CTA_URL}
+  ctaLabel={CTA_LABEL}
+
 >
   <HeroSection settings={settings} title={home.hero_title} content={home.hero_content} />
   <ServicesCarousel title={home.services_title} services={services} />

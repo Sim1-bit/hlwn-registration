@@ -19,9 +19,12 @@ const { settings, lang = "es" } = Astro.props
 
     <LanguageSwitcher lang={lang} />
 
-    <a href="https://fenles.com/evento/halloween-fest-estacio-de-franca-barcelona-lista-javier-31-10-2025-estacio-de-franca"
-       class="min-w-32 bs-btn ml-2">
-      { settings.demo.title }
-    </a>
+    <a
+  href="https://fenles.com/evento/halloween-fest-estacio-de-franca-barcelona-31-10-2025-estacio-de-franca?src=meta&utm_campaign=hlwnfest2025"
+  class="bs-btn"
+  data-cta
+>
+  { settings.demo?.title ?? "Comprar entradas" }
+</a>
   </div>
 </header>

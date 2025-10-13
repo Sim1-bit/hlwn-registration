@@ -2,6 +2,9 @@
 import Image from "astro/components/Image.astro"
 import poster from "../assets/theme-images/poster.png"
 const { settings, title, content } = Astro.props
+
+const BASE_CTA_URL =
+  "https://fenles.com/evento/halloween-fest-estacio-de-franca-barcelona-31-10-2025-estacio-de-franca?src=meta&utm_campaign=hlwnfest2025"
 ---
 
 <section class="bs-container py-6 flex flex-col lg:flex-row items-center">
@@ -9,16 +12,12 @@ const { settings, title, content } = Astro.props
   <div class="flex flex-col gap-6 lg:max-w-lg w-full py-16">
     <h1 class="bs-h1" set:html={ title } />
     <div class="bs-body-text xl:text-xl flex flex-col gap-4 [&_p]:last:text-bs-foreground-dark" set:html={ content } />
-    <a
-      href="https://fenles.com/hlwn?src=meta&utm_campaign=hlwnfest2025"
-      class="bs-btn self-start bs-mt-sm"
-      data-cta
-    >
+    <a href={BASE_CTA_URL} class="bs-btn self-start bs-mt-sm" data-cta>
       { settings.demo?.cta ?? "Comprar entradas" }
     </a>
   </div>
 
-  <!-- Immagine poster -->
+  <!-- Poster -->
   <figure class="relative mx-auto lg:mx-0 hlwn-figure-shift">
     <div class="hlwn-poster-fog"></div>
     <Image

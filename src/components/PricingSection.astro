@@ -67,9 +67,8 @@ const { title, pricing } = Astro.props
 
         <!-- CTA -->
 <footer class="flex justify-end items-center gap-2">
-  <a href="https://fenles.com/evento/halloween-fest-estacio-de-franca-barcelona-31-10-2025-estacio-de-franca"
-     class="bs-btn inline-block self-start @4xl:mt-12 text-xl">
-    { item.cta }
+  <a href={BASE_CTA_URL} class="bs-btn" data-cta>
+    { CTA_LABEL }
   </a>
 </footer>
 
