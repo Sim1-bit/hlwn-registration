@@ -1,134 +1,170 @@
 ---
-/* =============  CSS globali ============= */
-import "../assets/css/global.css";
-import "../assets/css/base.css";
-import "../assets/css/buttons.css";
-import "../assets/css/typography.css";
+import '../assets/css/global.css'
+import "../assets/css/base.css"
+import "../assets/css/typography.css"
+import "../assets/css/layout.css"
+import "../assets/css/buttons.css"
 
-/* =============  Componenti  ============= */
-import Image from "astro/components/Image.astro";
-import HeaderMain from "../components/HeaderMain.astro";
-import FooterMain from "../components/FooterMain.astro";
-import DialogModal from "../components/DialogModal.astro"; // se non lo usi, puoi rimuoverlo
+import { Font } from 'astro:assets'
+import Image from "astro/components/Image.astro"
 
-/* =============  Assets  ================= */
-import bg_image from "../assets/theme-images/hero-image.jpg";
+import DialogModal from "../components/DialogModal.astro"
+import FooterMain from "../components/FooterMain.astro"
+import HeaderMain from "../components/HeaderMain.astro"
 
-/**
- * Props accettate:
- * - title, description       → meta base
- * - lang                     → "es" | "it" | "en"
- * - settings                 → global_settings.json della lingua (nav/social/demo/title/description/…)
- * - social_image             → OpenGraph/Twitter image
- * - theme_color              → <meta name="theme-color">
- * - canonical                → <link rel="canonical">
- * - showStickyCta (bool)     → mostra bottone fisso globale
- * - ctaHref, ctaLabel        → URL/label del bottone fisso
- * - showFog (bool)           → overlay “spooky”
- */
-const {
-  title = "Halloween Fest – Fenles",
-  description = "La noche más grande de Halloween en Barcelona. Música, disfraces y un venue único: Estació de França.",
-  lang = "es",
-  settings = undefined,
-  social_image = "/content-images/social-halloween.jpg",
-  theme_color = "#1b0b2e",
-  canonical,
-  showStickyCta = true,
-  ctaHref = "https://fenles.com/evento/halloween-fest-estacio-de-franca-barcelona-lista-javier-31-10-2025-estacio-de-franca",
-  ctaLabel = "Acquista biglietti",
-  showFog = false,
-} = Astro.props;
+// tua locandina come background (puoi cambiarla)
+import bg_image from "../assets/theme-images/locandina.webp"
+
+// Props: passate dalla pagina
+const { title, description, settings, lang = "es" } = Astro.props
+
+// URL canonico per lingua
+const canonicalUrl = settings?.base_url + (lang === "es" ? "/" : `/${lang}/`)
 ---
 
-<!doctype html>
 <html lang={lang}>
+
   <head>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width" />
 
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <meta name="theme-color" content={theme_color} />
-    {canonical && <link rel="canonical" href={canonical} />}
+    <!-- SEO base -->
+    <title>{ title ?? settings.title }</title>
+    <meta name="description" content={ description ?? settings.description } />
+    <meta name="theme-color" content={ settings.theme_color } />
 
-    <!-- hreflang -->
-    <link rel="alternate" href="/" hreflang="es" />
-    <link rel="alternate" href="/it/" hreflang="it" />
-    <link rel="alternate" href="/en/" hreflang="en" />
-    <link rel="alternate" href="/" hreflang="x-default" />
+    <!-- Canonical & hreflang -->
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" href={settings.base_url + '/'} hreflang="es" />
+    <link rel="alternate" href={settings.base_url + '/ca/'} hreflang="ca" />
+    <link rel="alternate" href={settings.base_url + '/en/'} hreflang="en" />
+    <link rel="alternate" href={settings.base_url + '/'} hreflang="x-default" />
 
     <!-- Open Graph / Twitter -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={social_image} />
+    <meta property="og:title" content={ title ?? settings.title } />
+    <meta property="og:description" content={ description ?? settings.description } />
+    <meta property="og:url" content={ canonicalUrl } />
+    <meta property="og:image" content={ settings.base_url + settings.social_image } />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={social_image} />
+    <meta name="twitter:title" content={ title ?? settings.title } />
+    <meta name="twitter:description" content={ description ?? settings.description } />
+    <meta name="twitter:image" content={ settings.base_url + settings.social_image } />
 
-    <!-- Fonts: Creepster (display) + Inter (body) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <Font cssVariable="--font-inter" preload />
+    <Font cssVariable="--font-inter-display" preload />
+
+    <!-- (7) JSON-LD Event -->
+    <script type="application/ld+json" is:inline>
+    {
+      "@context": "https://schema.org",
+      "@type": "Event",
+      "name": "HLWN FEST Barcelona 2025 – Halloween Party",
+      "startDate": "2025-10-31T19:00:00+02:00",
+      "endDate": "2025-11-01T02:30:00+02:00",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "location": {
+        "@type": "Place",
+        "name": "Estació de França",
+        "address": "Barcelona, Spain"
+      },
+      "image": ["{settings.base_url}{settings.social_image}"],
+      "description": "Festival di Halloween con concerti, DJ, rumba catalana e un’atmosfera immersiva nel cuore di Barcellona. Biglietti da 10 €.",
+      "offers": {
+        "@type": "AggregateOffer",
+        "lowPrice": "10",
+        "highPrice": "15",
+        "priceCurrency": "EUR",
+        "url": "https://fenles.com/hlwn?src=meta&utm_campaign=hlwnfest2025"
+      },
+      "organizer": { "@type":"Organization", "name":"FENLES" }
+    }
+    </script>
+
+    <!-- (3) Meta Pixel -->
+    <script is:inline>
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+      (window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+      fbq('init', '${import.meta.env.PUBLIC_FB_PIXEL_ID ?? "YOUR_PIXEL_ID"}');
+      fbq('track', 'PageView');
+    </script>
+    <noscript>
+      <img height="1" width="1" style="display:none"
+        src={"https://www.facebook.com/tr?id=" + (import.meta.env.PUBLIC_FB_PIXEL_ID ?? "YOUR_PIXEL_ID") + "&ev=PageView&noscript=1"} />
+    </noscript>
   </head>
 
-  <body class="min-h-dvh bg-[#0e0d11] text-white">
-    <!-- BG globale -->
-    <div class="pointer-events-none fixed inset-0 -z-20">
-      <Image
-        src={bg_image}
-        alt=""
-        format="avif"
-        height={1080}
-        width={1920}
-        class="w-full h-full object-cover object-center opacity-20 [mask-image:linear-gradient(to_bottom,rgba(0,0,0,.7),transparent_65%)]"
-      />
-    </div>
+  <body id="top">
+    <!-- Skip link -->
+    <a class="fixed -top-20 focus-visible:top-0 p-3 bg-black/90 transition-all duration-300" href="#main">Skip to content</a>
 
-    {showFog && (
-      <div class="halloween-fog pointer-events-none fixed inset-0 -z-10"></div>
-    )}
+    <!-- bg image -->
+    <Image src={ bg_image } alt="" format="avif" height={1080} width={1920}
+      class="absolute min-h-svh object-cover inset-0 bottom-auto -z-1 w-full h-auto opacity-20 mask-b-from-50%" loading="eager" />
 
-    <!-- ======= Header globale (usa settings + lang) ======= -->
-    {settings && <HeaderMain settings={settings} lang={lang} />}
+    <!-- Header -->
+    <HeaderMain settings={ settings } lang={lang} />
 
-    <!-- ======= Contenuto pagina ======= -->
-    <main id="top"><slot /></main>
+    <!-- Main -->
+    <main id="main">
+      <slot />
+    </main>
 
-    <!-- ======= Footer globale ======= -->
-    {settings && <FooterMain settings={settings} />}
+    <!-- Footer -->
+    <FooterMain settings={ settings } />
 
-    <!-- ======= Dialog modal (se servisse) ======= -->
-    <DialogModal content={{
-      title: settings?.demo?.title ?? "Get in touch",
-      content: "<p>Leave us your details and we’ll get back to you.</p>",
-      cta: settings?.demo?.cta ?? "Send"
-    }} />
+    <!-- (5) Sticky CTA mobile/desktop -->
+    <a href="https://fenles.com/hlwn?src=meta&utm_campaign=hlwnfest2025"
+       class="bs-btn fixed bottom-3 right-3 z-50 sm:bottom-4 sm:right-4"
+       data-cta aria-label="Compra biglietti">
+      { settings.demo?.title ?? "Comprar entradas" }
+    </a>
 
-    <!-- ======= Sticky CTA globale (opzionale) ======= -->
-    {showStickyCta && (
-      <a href={ctaHref} class="bs-btn fixed bottom-4 right-4 z-50 md:bottom-6 md:right-6 btn-glow">
-        {ctaLabel}
-      </a>
-    )}
-
-    <!-- Stili locali opzionali -->
+    <!-- Spazio per non coprire contenuto su mobile -->
     <style>
-      .halloween-fog{
-        background:
-          radial-gradient(1200px 600px at 10% -10%, rgba(108,71,255,.18) 0, transparent 60%),
-          radial-gradient(900px 500px at 90% 0%, rgba(255,108,71,.12) 0, transparent 55%);
-        mix-blend-mode: screen;
-        opacity: .55;
-        animation: fog-move 24s linear infinite alternate;
+      @media (max-width: 640px){
+        main{ padding-bottom: 72px; }
       }
-      @keyframes fog-move {
-        from { transform: translate3d(-2%, 0, 0) scale(1.02); }
-        to   { transform: translate3d(2%, -1%, 0) scale(1.04); }
-      }
-      @media (prefers-reduced-motion: reduce){ .halloween-fog{ animation: none } }
     </style>
+
+    <!-- (2) Pass-through fbclid + normalizza UTM su TUTTE le CTA -->
+    <script is:inline>
+      (function () {
+        var q = new URLSearchParams(location.search);
+        var fbclid = q.get('fbclid');
+        document.querySelectorAll('a[data-cta]').forEach(function (a) {
+          try {
+            var url = new URL(a.getAttribute('href'), location.origin);
+            if (!url.searchParams.get('src')) url.searchParams.set('src','meta');
+            if (!url.searchParams.get('utm_campaign')) url.searchParams.set('utm_campaign','hlwnfest2025');
+            if (fbclid) url.searchParams.set('fbclid', fbclid);
+            a.setAttribute('href', url.toString());
+          } catch (e) {}
+        });
+      })();
+    </script>
+
+    <!-- (3) Eventi Pixel: ViewContent + ClickCTA -->
+    <script is:inline>
+      try { fbq && fbq('track','ViewContent',{content_name:'HLWN Fest Landing'}); } catch(e){}
+      document.querySelectorAll('a[data-cta]').forEach(function(a){
+        a.addEventListener('click', function(){
+          try { fbq && fbq('track','ClickCTA',{href:a.href}); } catch(e){}
+        });
+      });
+    </script>
   </body>
 </html>

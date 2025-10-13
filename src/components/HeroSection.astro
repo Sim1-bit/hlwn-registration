@@ -1,37 +1,32 @@
 ---
-
 import Image from "astro/components/Image.astro"
-import hero_screens from "../assets/theme-images/hero-screens.png"
-
+import poster from "../assets/theme-images/poster.png"
 const { settings, title, content } = Astro.props
-
 ---
 
 <section class="bs-container py-6 flex flex-col lg:flex-row items-center">
-
-  <!-- Content -->
+  <!-- Testi -->
   <div class="flex flex-col gap-6 lg:max-w-lg w-full py-16">
-
-    <!-- Title -->
     <h1 class="bs-h1" set:html={ title } />
-
-    <!-- Content -->
     <div class="bs-body-text xl:text-xl flex flex-col gap-4 [&_p]:last:text-bs-foreground-dark" set:html={ content } />
-
-    <!-- CTA -->
-    <a href="https://fenles.com/evento/halloween-fest-estacio-de-franca-barcelona-31-10-2025-estacio-de-franca"
-   class="bs-btn self-start bs-mt-sm">
-  { settings.demo.cta }
-</a>
-
-
+    <a
+      href="https://fenles.com/hlwn?src=meta&utm_campaign=hlwnfest2025"
+      class="bs-btn self-start bs-mt-sm"
+      data-cta
+    >
+      { settings.demo?.cta ?? "Comprar entradas" }
+    </a>
   </div>
 
-  <!-- Image -->
-  <figure class="flex place-content-center -mt-20 lg:mt-0">
-
-    <Image src={ hero_screens } format="avif" quality="high" alt="Screens showing phone, tablet and desktop views of our website" loading="eager" />
-
+  <!-- Immagine poster -->
+  <figure class="relative mx-auto lg:mx-0 hlwn-figure-shift">
+    <div class="hlwn-poster-fog"></div>
+    <Image
+      src={poster}
+      width={280}
+      alt="Poster HLWN Fest"
+      loading="eager"
+      class="hlwn-poster"
+    />
   </figure>
-
 </section>
