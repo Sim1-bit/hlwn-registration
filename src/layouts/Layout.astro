@@ -1,75 +1,134 @@
 ---
+/* =============  CSS globali ============= */
+import "../assets/css/global.css";
+import "../assets/css/base.css";
+import "../assets/css/buttons.css";
+import "../assets/css/typography.css";
 
-import '../assets/css/global.css'
-import "../assets/css/base.css"
-import "../assets/css/typography.css"
-import "../assets/css/layout.css"
-import "../assets/css/buttons.css"
+/* =============  Componenti  ============= */
+import Image from "astro/components/Image.astro";
+import HeaderMain from "../components/HeaderMain.astro";
+import FooterMain from "../components/FooterMain.astro";
+import DialogModal from "../components/DialogModal.astro"; // se non lo usi, puoi rimuoverlo
 
-import { Font } from 'astro:assets';
+/* =============  Assets  ================= */
+import bg_image from "../assets/theme-images/hero-image.jpg";
 
-import Image from "astro/components/Image.astro"
-import bg_image from "../assets/theme-images/hero-image.jpg"
-
-import global_settings from "../data/global_settings.json"
-
-import DialogModal from "../components/DialogModal.astro"
-import FooterMain from "../components/FooterMain.astro"
-import HeaderMain from "../components/HeaderMain.astro"
-
-const { title, description } = Astro.props
-
+/**
+ * Props accettate:
+ * - title, description       → meta base
+ * - lang                     → "es" | "it" | "en"
+ * - settings                 → global_settings.json della lingua (nav/social/demo/title/description/…)
+ * - social_image             → OpenGraph/Twitter image
+ * - theme_color              → <meta name="theme-color">
+ * - canonical                → <link rel="canonical">
+ * - showStickyCta (bool)     → mostra bottone fisso globale
+ * - ctaHref, ctaLabel        → URL/label del bottone fisso
+ * - showFog (bool)           → overlay “spooky”
+ */
+const {
+  title = "Halloween Fest – Fenles",
+  description = "La noche más grande de Halloween en Barcelona. Música, disfraces y un venue único: Estació de França.",
+  lang = "es",
+  settings = undefined,
+  social_image = "/content-images/social-halloween.jpg",
+  theme_color = "#1b0b2e",
+  canonical,
+  showStickyCta = true,
+  ctaHref = "https://fenles.com/evento/halloween-fest-estacio-de-franca-barcelona-lista-javier-31-10-2025-estacio-de-franca",
+  ctaLabel = "Acquista biglietti",
+  showFog = false,
+} = Astro.props;
 ---
 
-<html lang="en">
-
+<!doctype html>
+<html lang={lang}>
   <head>
-
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>{ title ?? global_settings.title }</title>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content={theme_color} />
+    {canonical && <link rel="canonical" href={canonical} />}
 
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="manifest" href="/manifest.json" />
+    <!-- hreflang -->
+    <link rel="alternate" href="/" hreflang="es" />
+    <link rel="alternate" href="/it/" hreflang="it" />
+    <link rel="alternate" href="/en/" hreflang="en" />
+    <link rel="alternate" href="/" hreflang="x-default" />
 
-    <meta name="description" content={ description ?? global_settings.description } />
-    <meta name="theme-color" content={ global_settings.theme_color } />
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={social_image} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={social_image} />
 
-    <meta property="og:title" content={ title ?? global_settings.title } />
-    <meta property="og:description" content={ description ?? global_settings.description } />
-    <meta
-      property="og:image"
-      content={ global_settings.base_url + global_settings.social_image }
-    />
-
-    <Font cssVariable="--font-inter" preload />
-    <Font cssVariable="--font-inter-display" preload />
-
+    <!-- Fonts: Creepster (display) + Inter (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   </head>
 
-  <body id="top">
+  <body class="min-h-dvh bg-[#0e0d11] text-white">
+    <!-- BG globale -->
+    <div class="pointer-events-none fixed inset-0 -z-20">
+      <Image
+        src={bg_image}
+        alt=""
+        format="avif"
+        height={1080}
+        width={1920}
+        class="w-full h-full object-cover object-center opacity-20 [mask-image:linear-gradient(to_bottom,rgba(0,0,0,.7),transparent_65%)]"
+      />
+    </div>
 
-    <!-- Skip link -->
-    <a class="fixed -top-20 focus-visible:top-0 p-3 bg-black/90 transition-all duration-300" href="#main">Skip to content</a>
+    {showFog && (
+      <div class="halloween-fog pointer-events-none fixed inset-0 -z-10"></div>
+    )}
 
-    <!-- bg image -->
-    <Image src={ bg_image } alt="" format="avif" height={1080} width={1920} class="absolute min-h-svh object-cover inset-0 bottom-auto -z-1 w-full h-auto opacity-20 mask-b-from-50%" loading="eager" />
+    <!-- ======= Header globale (usa settings + lang) ======= -->
+    {settings && <HeaderMain settings={settings} lang={lang} />}
 
-    <!-- Header -->
-    <HeaderMain settings={ global_settings } />
+    <!-- ======= Contenuto pagina ======= -->
+    <main id="top"><slot /></main>
 
-    <!-- Main slot -->
-    <main id="main">
-      <slot />
-    </main>
+    <!-- ======= Footer globale ======= -->
+    {settings && <FooterMain settings={settings} />}
 
-    <!-- Footer -->
-    <FooterMain settings={ global_settings } />
+    <!-- ======= Dialog modal (se servisse) ======= -->
+    <DialogModal content={{
+      title: settings?.demo?.title ?? "Get in touch",
+      content: "<p>Leave us your details and we’ll get back to you.</p>",
+      cta: settings?.demo?.cta ?? "Send"
+    }} />
 
-    <!-- Demo dialog modal -->
-    <DialogModal id="demo" content={ global_settings.demo }>
+    <!-- ======= Sticky CTA globale (opzionale) ======= -->
+    {showStickyCta && (
+      <a href={ctaHref} class="bs-btn fixed bottom-4 right-4 z-50 md:bottom-6 md:right-6 btn-glow">
+        {ctaLabel}
+      </a>
+    )}
 
+    <!-- Stili locali opzionali -->
+    <style>
+      .halloween-fog{
+        background:
+          radial-gradient(1200px 600px at 10% -10%, rgba(108,71,255,.18) 0, transparent 60%),
+          radial-gradient(900px 500px at 90% 0%, rgba(255,108,71,.12) 0, transparent 55%);
+        mix-blend-mode: screen;
+        opacity: .55;
+        animation: fog-move 24s linear infinite alternate;
+      }
+      @keyframes fog-move {
+        from { transform: translate3d(-2%, 0, 0) scale(1.02); }
+        to   { transform: translate3d(2%, -1%, 0) scale(1.04); }
+      }
+      @media (prefers-reduced-motion: reduce){ .halloween-fog{ animation: none } }
+    </style>
   </body>
 </html>
-

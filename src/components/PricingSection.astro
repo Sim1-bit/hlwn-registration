@@ -66,17 +66,13 @@ const { title, pricing } = Astro.props
         </ul>
 
         <!-- CTA -->
-        <footer class="flex justify-between items-center gap-2">
+<footer class="flex justify-end items-center gap-2">
+  <a href="https://fenles.com/evento/halloween-fest-estacio-de-franca-barcelona-31-10-2025-estacio-de-franca"
+     class="bs-btn inline-block self-start @4xl:mt-12 text-xl">
+    { item.cta }
+  </a>
+</footer>
 
-          <!-- Price -->
-          <span class="text-4xl lg:text-5xl">£{ item.price }<span class="text-2xl hidden @md:inline-block -translate-y-1 ms-2"> / month</span></span>
-
-          <!-- CTA button -->
-          <button type="button" class="bs-btn inline-block self-start @4xl:mt-12 text-xl" onclick="demo.showModal()">
-            { item.cta }
-          </button>
-
-        </footer>
 
       </div>
 

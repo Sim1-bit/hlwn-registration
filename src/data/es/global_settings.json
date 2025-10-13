@@ -1,0 +1,17 @@
+{
+  "title": "Halloween Fest – Estació de França (Barcelona) | Fenles",
+  "description": "La noche más grande de Halloween en Barcelona. Música, disfraces, luces y un venue único: Estació de França. Consigue tus entradas ahora.",
+  "base_url": "https://fenles.com",
+  "theme_color": "#1b0b2e",
+  "social_image": "/content-images/social-halloween.jpg",
+  "demo": { "title": "Comprar entradas", "cta": "Comprar entradas" },
+  "nav": [
+    { "title": "Servicios", "link": "/#services" },
+    { "title": "Case studies", "link": "/#case-studies" },
+    { "title": "FAQ", "link": "/#faq" }
+  ],
+  "social_links": [
+    { "title": "Instagram", "link": "https://instagram.com/fenles" },
+    { "title": "TikTok", "link": "https://tiktok.com/@fenles" }
+  ]
+}

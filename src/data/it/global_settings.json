@@ -1,0 +1,17 @@
+{
+  "title": "Halloween Fest – Estació de França (Barcellona) | Fenles",
+  "description": "La notte di Halloween più grande di Barcellona. Musica, costumi, luci e una location unica: Estació de França. Acquista i biglietti ora.",
+  "base_url": "https://fenles.com",
+  "theme_color": "#1b0b2e",
+  "social_image": "/content-images/social-halloween.jpg",
+  "demo": { "title": "Acquista biglietti", "cta": "Acquista biglietti" },
+  "nav": [
+    { "title": "Servizi", "link": "/it/#services" },
+    { "title": "Case studies", "link": "/it/#case-studies" },
+    { "title": "FAQ", "link": "/it/#faq" }
+  ],
+  "social_links": [
+    { "title": "Instagram", "link": "https://instagram.com/fenles" },
+    { "title": "TikTok", "link": "https://tiktok.com/@fenles" }
+  ]
+}
