@@ -1,6 +1,6 @@
 [
-  { "title": "Estació de França", "image": "/content-images/logo-edf.svg", "link": "#" },
-  { "title": "Fenles", "image": "/content-images/logo-fenles.svg", "link": "https://fenles.com" },
-  { "title": "Puig", "image": "/content-images/logo-puig.svg", "link": "#" },
-  { "title": "Damm", "image": "/content-images/logo-damm.svg", "link": "#" }
+  { "title": "BNGRUP", "image": "/content-images/logo-puig.svg", "link": "https://www.bngrup.com/" },
+  { "title": "L'Estació", "image": "/content-images/logo-edf.svg", "link": "#" },
+  { "title": "Crec", "image": "/content-images/logo-damm.svg", "link": "https://crec.cc/" },
+  { "title": "Fenles", "image": "/content-images/logo-fenles.svg", "link": "https://fenles.com" }
 ]

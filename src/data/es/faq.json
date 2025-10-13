@@ -1,7 +1,7 @@
 [
   { "question": "¿Edad mínima?", "answer": "<p>Evento para mayores de 18 años. Se pedirá DNI/Pasaporte.</p>" },
   { "question": "¿Dress code?", "answer": "<p>Recomendado: disfraz o detalles temáticos. No obligatorio.</p>" },
-  { "question": "¿Accesos y horarios?", "answer": "<p>Apertura 23:30. Último acceso 02:30. Cierre 06:00.</p>" },
-  { "question": "¿Entradas?", "answer": "<p>Compra online y muestra el QR en la entrada.</p>" },
+  { "question": "¿Accesos y horarios?", "answer": "<p>Apertura 19:00. Cierre 02:30.</p>" },
+  { "question": "¿Entradas?", "answer": "<p>Compra online en <a href=https://fenles.com/evento/halloween-fest-estacio-de-franca-barcelona-31-10-2025-estacio-de-franca>FENLES</a>.</p>" },
   { "question": "¿Devoluciones?", "answer": "<p>No se admiten devoluciones salvo cancelación oficial.</p>" }
 ]
