@@ -1,6 +1,7 @@
 [
-  { "title": "Acceso al evento", "content": "Entrada general para Halloween Fest.", "cta": "Comprar", "image": "/content-images/sv-acceso.jpg" },
-  { "title": "Show & ambientación", "content": "Luces, visuales, efectos especiales y performances.", "cta": "Comprar", "image": "/content-images/sv-show.jpg" },
-  { "title": "Concurso de disfraces", "content": "Premios a los mejores looks de la noche.", "cta": "Comprar", "image": "/content-images/sv-disfraces.jpg" },
-  { "title": "Zona de fotos", "content": "Photo spots temáticos para compartir en redes.", "cta": "Comprar", "image": "/content-images/sv-fotos.jpg" }
+  { "title": "Monster Karaoke", "content": "Acceso general al Halloween Fest.", "cta": "Gratuito", "image": "/content-images/sv-acceso.jpg" },
+  { "title": "Lectura de tarot", "content": "Luces, visuales, efectos especiales y performances.", "cta": "Comprar", "image": "/content-images/sv-show.jpg" },
+  { "title": "Concurso de disfraces", "content": "Premios a los mejores looks de la noche.", "cta": "Gratuito", "image": "/content-images/sv-disfraces.jpg" },
+  { "title": "Zona de fotos", "content": "Espacios temáticos para compartir en redes sociales.", "cta": "Gratuito", "image": "/content-images/sv-fotos.jpg" },
+  { "title": "Artista de caricaturas en vivo", "content": "Un artista dibujará tu caricatura en el momento.", "cta": "Comprar", "image": "/content-images/sv-fotos.jpg" }
 ]

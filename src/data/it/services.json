@@ -1,6 +1,7 @@
 [
-  { "title": "Accesso all’evento", "content": "Ingresso generale per Halloween Fest.", "cta": "Acquista", "image": "/content-images/sv-acceso.jpg" },
-  { "title": "Show & ambientazione", "content": "Luci, visual, effetti speciali e performance.", "cta": "Acquista", "image": "/content-images/sv-show.jpg" },
-  { "title": "Contest costumi", "content": "Premi ai migliori look della serata.", "cta": "Acquista", "image": "/content-images/sv-disfraces.jpg" },
-  { "title": "Photo spots", "content": "Aree foto tematiche da condividere sui social.", "cta": "Acquista", "image": "/content-images/sv-fotos.jpg" }
+  { "title": "Monster Karaoke", "content": "Karaoke", "cta": "Gratuito", "image": "/content-images/sv-acceso.jpg" },
+  { "title": "Tarot Reading", "content": "Leggi il tuo destino.", "cta": "A pagamento", "image": "/content-images/sv-show.jpg" },
+  { "title": "Costume contest", "content": "Competi insieme ad altri per mostrare chi ha il miglior costume", "cta": "Gratuito", "image": "/content-images/sv-disfraces.jpg" },
+  { "title": "Photo spots", "content": "Area a tema dedicata alle foto.", "cta": "Gratuito", "image": "/content-images/sv-fotos.jpg" },
+  { "title": "Caricaturista", "content": "Un artista che disegnera la tua caricatura", "cta": "A pagamento", "image": "/content-images/sv-fotos.jpg" }
 ]

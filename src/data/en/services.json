@@ -1,6 +1,7 @@
 [
-  { "title": "Event access", "content": "General admission to Halloween Fest.", "cta": "Buy", "image": "/content-images/sv-acceso.jpg" },
-  { "title": "Show & atmosphere", "content": "Lights, visuals, special effects and performances.", "cta": "Buy", "image": "/content-images/sv-show.jpg" },
-  { "title": "Costume contest", "content": "Prizes for the best looks of the night.", "cta": "Buy", "image": "/content-images/sv-disfraces.jpg" },
-  { "title": "Photo spots", "content": "Themed photo areas to share on social media.", "cta": "Buy", "image": "/content-images/sv-fotos.jpg" }
+  { "title": "Monster Karaoke", "content": "Karaoke.", "cta": "Free", "image": "/content-images/sv-acceso.jpg" },
+  { "title": "Tarot Reading", "content": "Read your fate.", "cta": "Buy", "image": "/content-images/sv-show.jpg" },
+  { "title": "Costume contest", "content": "Prizes for the best looks of the night.", "cta": "Free", "image": "/content-images/sv-disfraces.jpg" },
+  { "title": "Photo spots", "content": "Themed photo areas to share on social media.", "cta": "Free", "image": "/content-images/sv-fotos.jpg" },
+  { "title": "Live caricature artist", "content": "An artist who will make your caricature.", "cta": "Buy", "image": "/content-images/sv-fotos.jpg" }
 ]

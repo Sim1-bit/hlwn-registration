@@ -1,22 +1,32 @@
 [
   {
-    "title": "Taste IT",
-    "sector": "Aparcament Grimaldi",
-    "content": "El festival que celebra la gastronomia italiana y italianidad con street food, talleres, musica y teatro.",
-    "lineup_link": "https://fenles.com/evento/taste-it-2024-italian-food-festival-25-5-2024-bar-grimaldi-terminal-barcelona",
+    "title": "DJ Avezz",
+    "sector": "Music",
+    "content": "🎧 DJ Avezz<br>Prepárate para un viaje musical electrizante por tres décadas icónicas, con un toque oscuro y misterioso perfecto para la noche de Halloween. Desde los éxitos más bailables hasta los himnos más emblemáticos, DJ Avezz hará vibrar la pista con una mezcla llena de nostalgia y energía.<br>¡No te pierdas la noche más espeluznante del año con el ritmo ideal!",
+    "lineup_link": "https://www.instagram.com/p/DK9Z4RgIWjm/",
     "cta": "Ver detalles",
-    "image": "/content-images/case-1.jpg",
-    "image_alt": "Entrada al evento con decoración de Halloween",
+    "image": "/content-images/dj-avezz.webp",
+    "image_alt": "DJ Avezz",
     "bg": "bg-gradient-to-r from-[#3b1bd1] to-[#7b5cff]"
   },
   {
-    "title": "Main Stage",
-    "sector": "Show",
-    "content": "Visuales, luces y performances durante toda la noche.",
-    "lineup_link": "https://fenles.com/evento/halloween-2025",
+    "title": "Food Truck",
+    "sector": "Food",
+    "content": "",
+    "lineup_link": "",
     "cta": "Ver detalles",
-    "image": "/content-images/case-2.jpg",
-    "image_alt": "Escenario principal con luces moradas",
+    "image": "/content-images/food-truck.webp",
+    "image_alt": "Food Truck",
     "bg": "bg-gradient-to-r from-[#7b5cff] to-[#d1479b]"
+  },
+  {
+    "title": "Spritz Point",
+    "sector": "Drink",
+    "content": "",
+    "lineup_link": "",
+    "cta": "Ver detalles",
+    "image": "/content-images/raw.webp",
+    "image_alt": "Spritz",
+    "bg": "bg-gradient-to-r from-[#d1479b] to-[#ff6c47]"
   }
 ]
