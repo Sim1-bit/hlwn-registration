@@ -1,0 +1,13 @@
+{
+  "title": "Ultimi biglietti al miglior prezzo",
+  "subtitle": "Prezzi a scaglioni. Approfitta ora prima del prossimo aumento.",
+  "currentPriceLabel": "Prezzo ora",
+  "nextPriceLabel": "Prossimo prezzo",
+  "labels": {
+    "days": "giorni",
+    "hours": "ore",
+    "minutes": "min",
+    "seconds": "sec"
+  },
+  "cta": "Acquista biglietti"
+}

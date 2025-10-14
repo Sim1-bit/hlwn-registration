@@ -1,0 +1,13 @@
+{
+  "title": "Last tickets at the best price",
+  "subtitle": "Prices increase in tiers. Grab yours before the next change.",
+  "currentPriceLabel": "Price now",
+  "nextPriceLabel": "Next price",
+  "labels": {
+    "days": "days",
+    "hours": "hours",
+    "minutes": "min",
+    "seconds": "sec"
+  },
+  "cta": "Buy tickets"
+}

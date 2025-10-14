@@ -1,0 +1,218 @@
+---
+import esCopy from "../data/es/urgency.json";
+import enCopy from "../data/en/urgency.json";
+import itCopy from "../data/it/urgency.json";
+
+const { lang = "es" } = Astro.props;
+const L = (lang === "it" ? itCopy : lang === "en" ? enCopy : esCopy);
+---
+<section id="early-bird" class="bs-container my-16 md:my-24">
+  <div class="uc-card relative overflow-hidden rounded-3xl p-6 md:p-10">
+    <!-- Glow & fog -->
+    <div class="uc-glow"></div>
+    <div class="uc-fog"></div>
+
+    <!-- Bats -->
+    <div class="uc-bat uc-bat-1" aria-hidden="true">🦇</div>
+    <div class="uc-bat uc-bat-2" aria-hidden="true">🦇</div>
+
+    <div class="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+      <div class="max-w-xl">
+        <h2 class="uc-title mb-2">{L.title}</h2>
+        <p class="opacity-90">{L.subtitle}</p>
+      </div>
+
+      <div class="shrink-0 text-center md:text-right">
+        <div class="text-sm opacity-80">{L.currentPriceLabel}</div>
+        <div id="uc-current-price" class="uc-price">—</div>
+      </div>
+    </div>
+
+    <!-- Countdown -->
+    <div class="relative z-10 mt-6 md:mt-8 grid grid-cols-4 gap-2 text-center">
+      <div class="uc-box">
+        <div id="uc-d" class="uc-num">0</div>
+        <div class="uc-label">{L.labels.days}</div>
+      </div>
+      <div class="uc-box">
+        <div id="uc-h" class="uc-num">00</div>
+        <div class="uc-label">{L.labels.hours}</div>
+      </div>
+      <div class="uc-box">
+        <div id="uc-m" class="uc-num">00</div>
+        <div class="uc-label">{L.labels.minutes}</div>
+      </div>
+      <div class="uc-box">
+        <div id="uc-s" class="uc-num">00</div>
+        <div class="uc-label">{L.labels.seconds}</div>
+      </div>
+    </div>
+
+    <!-- Time-left bar -->
+    <div class="relative z-10 mt-5">
+      <div class="uc-bar">
+        <div id="uc-bar-fill" class="uc-bar-fill" style="width:100%"></div>
+      </div>
+      <div class="mt-2 flex items-center justify-between text-sm opacity-85">
+        <div><span class="font-semibold">{L.nextPriceLabel}:</span> <span id="uc-next-price">—</span></div>
+        <div id="uc-tier-tag" class="uc-tier">—</div>
+      </div>
+    </div>
+
+    <div class="relative z-10 mt-6 md:mt-8 flex items-center justify-end">
+      <a href="#contact" class="bs-btn ring-1 ring-white/10" data-cta>{L.cta}</a>
+    </div>
+  </div>
+
+  <style>
+    .uc-card{
+      background: radial-gradient(120% 140% at 0% 0%, rgba(124,58,237,.25), transparent 40%),
+                  radial-gradient(120% 140% at 100% 100%, rgba(249,115,22,.18), transparent 45%),
+                  rgba(12,12,18,.9);
+      border: 1px solid rgba(167,139,250,.25);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
+      contain: content;
+    }
+    .uc-glow{
+      position:absolute; inset:-40%;
+      background: radial-gradient(60% 60% at 50% 40%, rgba(124,58,237,.18) 0%, rgba(124,58,237,0) 70%),
+                  radial-gradient(50% 50% at 70% 60%, rgba(249,115,22,.16) 0%, rgba(249,115,22,0) 70%);
+      filter: blur(18px); pointer-events:none;
+    }
+    .uc-fog{
+      position:absolute; inset:-20%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0 .07 .06 0'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+      mix-blend-mode: screen; opacity:.25; animation: fog 20s linear infinite;
+      pointer-events:none;
+    }
+    @keyframes fog { from{transform:translateX(-2%)} to{transform:translateX(2%)} }
+
+    .uc-title{ font-family: Creepster, var(--font-inter, ui-sans-serif); font-size: clamp(1.6rem, 3vw, 2.2rem); letter-spacing:.02em; }
+    .uc-price{ font-size: clamp(2rem, 3.6vw, 2.6rem); font-weight: 900; text-shadow: 0 0 18px rgba(124,58,237,.6); }
+    .uc-num{ font-variant-numeric: tabular-nums; letter-spacing:.02em; font-weight:800; font-size: clamp(1.4rem, 3vw, 1.9rem); }
+    .uc-box{ background: rgba(32,32,48,.6); border:1px solid rgba(167,139,250,.25); border-radius: 14px; padding: .85rem; }
+    .uc-label{ font-size:.72rem; opacity:.8; margin-top:.25rem }
+    .uc-bar{ height:10px; background: rgba(255,255,255,.08); border-radius:999px; overflow:hidden; border:1px solid rgba(255,255,255,.1) }
+    .uc-bar-fill{
+      height:100%; background: linear-gradient(90deg, #f97316, #a855f7);
+      box-shadow: 0 0 18px rgba(168,85,247,.45); transform-origin:right center;
+      transition: width .35s cubic-bezier(.22,1,.36,1);
+    }
+    .uc-tier{ padding:.2rem .5rem; border-radius:999px; border:1px solid rgba(255,255,255,.15); background: rgba(255,255,255,.06); }
+    .uc-bat{ position:absolute; font-size:22px; opacity:.8; filter: drop-shadow(0 2px 2px rgba(0,0,0,.4)); }
+    .uc-bat-1{ top:20px; left:24px; animation: bat 8s ease-in-out infinite; }
+    .uc-bat-2{ bottom:26px; right:30px; animation: bat 10s ease-in-out infinite reverse; }
+    @keyframes bat {
+      0%{ transform: translate(0,0) rotate(0deg) }
+      50%{ transform: translate(16px,-6px) rotate(-8deg) }
+      100%{ transform: translate(0,0) rotate(0deg) }
+    }
+  </style>
+
+  <script is:inline>
+    (function(){
+      // ====== date boundaries ======
+      function endOfTomorrowLocal(){
+        const t = new Date();
+        t.setDate(t.getDate() + 1);
+        t.setHours(23,59,59,999);
+        return t;
+      }
+      const T2_END = new Date("2025-10-30T23:59:59+02:00"); // 12€
+      const T3_END = new Date("2025-10-31T23:59:59+02:00"); // 15€
+
+      function tierState(now){
+        const t1 = endOfTomorrowLocal();
+        if (now <= t1) return {price:"10 €", next:"12 €", deadline:t1, tag:"EARLY"};
+        if (now <= T2_END) return {price:"12 €", next:"15 €", deadline:T2_END, tag:"MID"};
+        return {price:"15 €", next:"—", deadline:T3_END, tag:"LAST"};
+      }
+
+      // ====== elements ======
+      const $d = document.getElementById('uc-d');
+      const $h = document.getElementById('uc-h');
+      const $m = document.getElementById('uc-m');
+      const $s = document.getElementById('uc-s');
+      const $cur = document.getElementById('uc-current-price');
+      const $next = document.getElementById('uc-next-price');
+      const $bar = document.getElementById('uc-bar-fill');
+      const $tag = document.getElementById('uc-tier-tag');
+
+      // performance state
+      let running = false, vis = true, inView = true;
+      let lastVals = {d:null,h:null,m:null,s:null,price:null,next:null,tag:null};
+      let tierTotal = null; // per animare la barra in modo relativo al "tier attuale"
+
+      function pad(n){ return String(n).padStart(2,'0'); }
+
+      function setText(el, v){ if(el && el.textContent !== v) el.textContent = v; }
+
+      function update(now){
+        const st = tierState(now);
+
+        // setup tier total al cambio tier
+        if(lastVals.tag !== st.tag){
+          // nuova finestra: durata totale = deadline - adesso (al primo tick di questo tier)
+          tierTotal = Math.max(1, st.deadline - now);
+        }
+
+        const diff = Math.max(0, st.deadline - now);
+        const sec  = Math.floor(diff/1000);
+        const d = Math.floor(sec/86400);
+        const h = Math.floor((sec%86400)/3600);
+        const m = Math.floor((sec%3600)/60);
+        const s = sec%60;
+
+        // batch DOM writes
+        requestAnimationFrame(()=>{
+          const hh = pad(h), mm = pad(m), ss = pad(s);
+          if(lastVals.d !== d){ setText($d, String(d)); lastVals.d = d; }
+          if(lastVals.h !== hh){ setText($h, hh); lastVals.h = hh; }
+          if(lastVals.m !== mm){ setText($m, mm); lastVals.m = mm; }
+          if(lastVals.s !== ss){ setText($s, ss); lastVals.s = ss; }
+
+          if(lastVals.price !== st.price){ setText($cur, st.price); lastVals.price = st.price; }
+          if(lastVals.next !== st.next){ setText($next, st.next); lastVals.next = st.next; }
+          if(lastVals.tag !== st.tag){ setText($tag, st.tag === "EARLY" ? "Early-bird" : st.tag === "MID" ? "Tier 2" : "Last day"); lastVals.tag = st.tag; }
+
+          if($bar && tierTotal){
+            const pct = Math.max(0, Math.min(1, diff / tierTotal));
+            const w = (pct*100).toFixed(2) + "%";
+            if($bar.style.width !== w) $bar.style.width = w;
+          }
+        });
+      }
+
+      function loop(){
+        if(!running) return;
+        const now = new Date();
+        update(now);
+        // allinea al prossimo secondo (no drift)
+        const ms = 1000 - (now.getTime() % 1000);
+        setTimeout(loop, ms);
+      }
+
+      function start(){
+        if(running || !vis || !inView) return;
+        running = true; loop();
+      }
+      function stop(){ running = false; }
+
+      // Visibility & viewport
+      document.addEventListener('visibilitychange', ()=>{
+        vis = document.visibilityState === "visible";
+        vis ? start() : stop();
+      });
+
+      const root = document.querySelector('#early-bird');
+      const io = new IntersectionObserver((entries)=>{
+        inView = entries[0]?.isIntersecting ?? true;
+        inView ? start() : stop();
+      }, {root:null, threshold:0.05});
+      if(root) io.observe(root);
+
+      // kick
+      start();
+    })();
+  </script>
+</section>

@@ -1,14 +1,28 @@
 ---
-import Logo from '../assets/theme-images/logo.svg' // o il tuo logo custom
 import LanguageSwitcher from './LanguageSwitcher.astro'
+
 const { settings, lang = "es" } = Astro.props
+
+const BASE_CTA_URL =
+  "https://fenles.com/evento/halloween-fest-estacio-de-franca-barcelona-31-10-2025-estacio-de-franca?src=meta&utm_campaign=hlwnfest2025"
 ---
+
 <header class="wrapper bg-loop font-semibold">
   <div class="bs-container py-6 flex items-center gap-4">
+    <!-- Logo da /public -->
     <a class="flex xl:min-w-32 group mr-auto" href="/" aria-label={ settings.title + ' - Home' }>
-      <Logo height="48" width="48" />
+      <img
+        src="/content-images/fenly_logo.svg"
+        alt="Logo"
+        width="48"
+        height="48"
+        loading="eager"
+        decoding="async"
+        style="display:block"
+      />
     </a>
 
+    <!-- Nav -->
     <nav class="hidden md:flex mx-auto self-stretch lg:gap-2">
       { settings.nav.map(item =>
         <a class="bs-btn !bg-transparent before:translate-y-full hover:before:translate-y-0" href={item.link}>
@@ -17,14 +31,12 @@ const { settings, lang = "es" } = Astro.props
       )}
     </nav>
 
+    <!-- Switcher lingue -->
     <LanguageSwitcher lang={lang} />
 
-    <a
-  href="https://fenles.com/evento/halloween-fest-estacio-de-franca-barcelona-31-10-2025-estacio-de-franca?src=meta&utm_campaign=hlwnfest2025"
-  class="bs-btn"
-  data-cta
->
-  { settings.demo?.title ?? "Comprar entradas" }
-</a>
+    <!-- CTA -->
+    <a href={BASE_CTA_URL} class="bs-btn" data-cta>
+      { settings.demo?.title ?? "Comprar entradas" }
+    </a>
   </div>
 </header>

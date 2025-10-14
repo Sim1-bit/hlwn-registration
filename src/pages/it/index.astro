@@ -8,6 +8,7 @@ import QuoteSection from "../../components/QuoteSection.astro"
 import CaseStudiesSection from "../../components/CaseStudiesSection.astro"
 import TestimonialsSection from "../../components/TestimonialsSection.astro"
 import FaqSection from "../../components/FaqSection.astro"
+import UrgencyCountdown from "../../components/UrgencyCountdown.astro";
 
 import settings from "../../data/it/global_settings.json"
 import home from "../../data/it/home.json"
@@ -46,4 +47,5 @@ const CTA_LABEL = (typeof settings !== 'undefined' && settings?.demo?.title)
   <CaseStudiesSection title={home.case_studies_title} caseStudies={caseStudies} />
   <TestimonialsSection title={home.testimonials_title} testimonials={testimonials} />
   <FaqSection title={home.faq_title} faq={faq} />
+  <UrgencyCountdown lang="it" />
 </Layout>
