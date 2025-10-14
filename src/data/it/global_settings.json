@@ -7,7 +7,7 @@
   "demo": { "title": "Acquista biglietti", "cta": "Acquista biglietti" },
   "nav": [
     { "title": "Servizi", "link": "/it/#services" },
-    { "title": "Eventi Passati", "link": "/it/#past_events" },
+    { "title": "Lineup", "link": "/it/#lineup" },
     { "title": "FAQ", "link": "/it/#faq" }
   ],
   "social_links": [

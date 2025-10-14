@@ -1,12 +1,12 @@
 ---
 
-import CardCaseStudy from './CardPastEvent.astro'
+import CardLineup from './CardLineup.astro'
 
-const { title, caseStudies } = Astro.props
+const { title, lineup } = Astro.props
 
 ---
 
-<section class="bs-container bs-mt-lg" id="case-studies">
+<section class="bs-container bs-mt-lg" id="lineup">
 
   <!-- Header -->
   { title && <h2 class="bs-h2 text-center md:text-left">{ title }</h2> }
@@ -14,14 +14,14 @@ const { title, caseStudies } = Astro.props
   <!-- Case Study 1 -->
   <div class="bs-mt-md">
 
-    <CardCaseStudy caseStudy={ caseStudies[0] } />
+    <CardLineup lineup={ lineup[0] } />
 
   </div>
 
   <!-- Case studies -->
   <div class="mt-8 grid lg:grid-cols-2 gap-8">
 
-    <CardCaseStudy caseStudy={ caseStudies[1] } />
+    <CardLineup lineup={ lineup[1] } />
   </div>
 
 </section>

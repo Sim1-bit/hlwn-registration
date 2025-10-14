@@ -5,7 +5,7 @@ import HeroSection from "../../components/HeroSection.astro"
 import ServicesCarousel from "../../components/ServicesCarousel.astro"
 import ClientsSection from "../../components/ClientsSection.astro"
 import QuoteSection from "../../components/QuoteSection.astro"
-import PastEventsSection from "../../components/PastEventsSection.astro"
+import LineupSection from "../../components/LineupSection.astro"
 import TestimonialsSection from "../../components/TestimonialsSection.astro"
 import FaqSection from "../../components/FaqSection.astro"
 
@@ -13,7 +13,7 @@ import settings from "../../data/en/global_settings.json"
 import home from "../../data/en/home.json"
 import services from "../../data/en/services.json"
 import clients from "../../data/en/clients.json"
-import pastEvents from "../../data/en/past_events.json"
+import lineup from "../../data/en/lineup.json"
 import faq from "../../data/en/faq.json"
 import testimonials from "../../data/en/testimonials.json"
 
@@ -42,7 +42,7 @@ const CTA_LABEL = (typeof settings !== 'undefined' && settings?.demo?.title)
   <ServicesCarousel title={home.services_title} services={services} />
   <ClientsSection title={home.clients_title} clients={clients} />
   <QuoteSection content={home.quote_content} cite={home.quote_cite} role={home.quote_role} image={home.quote_image} />
-  <PastEventsSection title={home.past_events_title} pastEvents={pastEvents} />
+  <LineupSection title={home.lineup_title} lineup={lineup} />
   <TestimonialsSection title={home.testimonials_title} testimonials={testimonials} />
   <FaqSection title={home.faq_title} faq={faq} />
 </Layout>
