@@ -1,0 +1,28 @@
+---
+
+import CardPastEvents from './CardPastEvents.astro'
+
+const { title, pastEvents } = Astro.props
+
+---
+
+<section class="bs-container bs-mt-lg" id="past-events">
+
+  <!-- Header -->
+  { title && <h2 class="bs-h2 text-center md:text-left">{ title }</h2> }
+
+  <!-- Case Study 1 -->
+  <div class="bs-mt-md">
+
+    <CardPastEvents pastEvents={ pastEvents[0] } />
+
+  </div>
+
+  <!-- Past events -->
+  <div class="mt-8 grid lg:grid-cols-2 gap-8">
+
+    <CardPastEvents pastEvents={ pastEvents[1] } />
+  </div>
+
+</section>
+

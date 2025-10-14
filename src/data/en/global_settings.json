@@ -6,8 +6,8 @@
   "social_image": "/content-images/social-halloween.jpg",
   "demo": { "title": "Buy tickets", "cta": "Buy tickets" },
   "nav": [
+    { "title": "Past Events", "link": "/en/#past-events" },
     { "title": "Services", "link": "/en/#services" },
-    { "title": "Case studies", "link": "/en/#case-studies" },
     { "title": "FAQ", "link": "/en/#faq" }
   ],
   "social_links": [
