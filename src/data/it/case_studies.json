@@ -1,8 +1,8 @@
 [
   {
-    "title": "L’arrivo",
-    "sector": "Estació de França",
-    "content": "Porte aperte, prime foto ed emozione nell’aria.",
+    "title": "Taste IT",
+    "sector": "Aparcament Grimaldi",
+    "content": "Il festival che celebra la gastronomia italiana e l’italianità con street food, laboratori, musica e teatro.",
     "case_study_link": "https://fenles.com/evento/halloween-2025",
     "cta": "Vedi dettagli",
     "image": "/content-images/case-1.jpg",
@@ -18,15 +18,5 @@
     "image": "/content-images/case-2.jpg",
     "image_alt": "Palco principale con luci viola",
     "bg": "bg-gradient-to-r from-[#7b5cff] to-[#d1479b]"
-  },
-  {
-    "title": "Best Costume",
-    "sector": "Contest",
-    "content": "Vincitori del contest costumi. Livello altissimo!",
-    "case_study_link": "https://fenles.com/evento/halloween-2025",
-    "cta": "Vedi dettagli",
-    "image": "/content-images/case-3.jpg",
-    "image_alt": "Partecipanti con costumi",
-    "bg": "bg-gradient-to-r from-[#d1479b] to-[#ff6c47]"
   }
 ]
