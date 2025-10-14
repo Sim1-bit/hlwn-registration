@@ -21,14 +21,12 @@ const { title, description, settings, lang = "es" } = Astro.props
 const canonicalUrl = settings?.base_url + (lang === "es" ? "/" : `/${lang}/`)
 
 // === CONFIG ===
-const pixelId = import.meta.env.PUBLIC_FB_PIXEL_ID ?? "1227221879138874"
-const BASE_CTA_URL =
-  "https://fenles.com/evento/halloween-fest-estacio-de-franca-barcelona-lista-javier-31-10-2025-estacio-de-franca?src=meta&utm_campaign=hlwnfest2025"
+const pixelId = import.meta.env.PUBLIC_FB_PIXEL_ID ?? "1227221879183874"
 
 // OG image assoluta
 const ogImage = settings.base_url + settings.social_image
 
-// JSON-LD Event
+// JSON-LD Event (se questa pagina è l’evento)
 const jsonLdEvent = {
   "@context": "https://schema.org",
   "@type": "Event",
@@ -37,22 +35,15 @@ const jsonLdEvent = {
   "endDate": "2025-11-01T02:30:00+02:00",
   "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
   "eventStatus": "https://schema.org/EventScheduled",
-  "location": {
-    "@type": "Place",
-    "name": "Estació de França",
-    "address": "Barcelona, Spain"
-  },
+  "location": { "@type": "Place", "name": "Estació de França", "address": "Barcelona, Spain" },
   "image": [ogImage],
   "description": "Festival di Halloween con concerti, DJ, rumba catalana e un’atmosfera immersiva nel cuore di Barcellona. Biglietti da 10 €.",
-  "offers": {
-    "@type": "AggregateOffer",
-    "lowPrice": "10",
-    "highPrice": "15",
-    "priceCurrency": "EUR",
-    "url": BASE_CTA_URL
-  },
+  "offers": { "@type": "AggregateOffer", "lowPrice": "10", "highPrice": "15", "priceCurrency": "EUR", "url": settings?.base_url },
   "organizer": { "@type": "Organization", "name": "FENLES" }
 }
+
+// path privacy localizzato
+const privacyPath = lang === "en" ? "/en/privacy" : lang === "it" ? "/it/privacy" : "/privacy";
 ---
 
 <html lang={lang}>
@@ -75,6 +66,7 @@ const jsonLdEvent = {
     <link rel="alternate" href={settings.base_url + '/'} hreflang="es" />
     <link rel="alternate" href={settings.base_url + '/ca/'} hreflang="ca" />
     <link rel="alternate" href={settings.base_url + '/en/'} hreflang="en" />
+    <link rel="alternate" href={settings.base_url + '/it/'} hreflang="it" />
     <link rel="alternate" href={settings.base_url + '/'} hreflang="x-default" />
 
     <!-- Open Graph / Twitter -->
@@ -97,28 +89,65 @@ const jsonLdEvent = {
     <!-- JSON-LD Event -->
     <script type="application/ld+json" is:inline>{JSON.stringify(jsonLdEvent)}</script>
 
-    <!-- Meta Pixel -->
-<script is:inline>
-  (function (f, b, e, v, n, t, s) {
-    if (f.fbq) return;
-    n = function(){ n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); };
-    n.queue = []; n.loaded = true; n.version = '2.0';
-    t = b.createElement(e); t.async = true; t.src = v;
-    s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s);
-    f._fbq = f._fbq || n;
-    f.fbq  = n; // make global
-  })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+    <!-- ============ GDPR helpers (no Pixel until consent) ============ -->
+    <script is:inline>
+      // Cookie store consenso
+      window.fenlesConsent = {
+        key: 'fenles_consent_v1',
+        get() {
+          try {
+            const raw = document.cookie.split('; ').find(x => x.startsWith(this.key + '='));
+            return raw ? JSON.parse(decodeURIComponent(raw.split('=')[1])) : {};
+          } catch { return {}; }
+        },
+        set(obj) {
+          const v = encodeURIComponent(JSON.stringify(obj));
+          const exp = new Date(Date.now() + 365*24*60*60*1000).toUTCString();
+          document.cookie = this.key + '=' + v + '; Path=/; Expires=' + exp + '; SameSite=Lax';
+        },
+        clear() { document.cookie = this.key + '=; Max-Age=0; Path=/; SameSite=Lax'; },
+        hasMarketing() { return !!this.get().marketing; },
+        hasDecided() { return 'marketing' in this.get(); }
+      };
 
-  // IMPORTANT: no quotes → use the real value rendered by Astro
-  window.fbq('init', {pixelId});
-  window.fbq('track', 'PageView');
-  console.log('[PIXEL] PageView fired with ID:', {pixelId});
-</script>
-<noscript>
-  <img height="1" width="1" style="display:none"
-       src={"https://www.facebook.com/tr?id=" + pixelId + "&ev=PageView&noscript=1"} />
-</noscript>
+      // Loader Pixel (solo dopo consenso) + anti double-init + no AutoEvents
+      window.loadMetaPixel = function (pixelId) {
+        var PID = pixelId;
+        if (!(window.fbq && window.fbq.loaded)) {
+          (function (f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); };
+            n.queue = []; n.loaded = true; n.version = '2.0';
+            t = b.createElement(e); t.async = true; t.src = v;
+            s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s);
+            f._fbq = f._fbq || n; f.fbq = n;
+          })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+        }
+        window.fbq && window.fbq('set', 'autoConfig', false, PID);
+        window.fbq && window.fbq('disablePushState', true);
 
+        if (!window.__pixelInitialized) {
+          window.fbq && window.fbq('init', PID);
+          window.__pixelInitialized = true;
+        }
+        window.fbq && window.fbq('track', 'PageView');
+      };
+    </script>
+
+    <!-- Stili banner -->
+    <style>
+      .cookie-banner {
+        position: fixed; left: 0; right: 0; bottom: 0; z-index: 99999;
+        background: rgba(16,16,26,.98); color: #e6e6f0;
+        border-top: 1px solid rgba(167,139,250,.25);
+        padding: 14px 16px; display: none;
+      }
+      .cookie-banner.show { display: block; }
+      .cookie-banner .actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
+      .btn-ghost{ background:#262636; color:#e6e6f0; border:1px solid #3b3b55; padding:10px 14px; border-radius:12px; }
+      .btn-primary{ background:#7c3aed; color:white; padding:10px 14px; border-radius:12px; border:0; }
+      .cookie-banner a{ color:#a78bfa; text-decoration: underline; }
+    </style>
   </head>
 
   <body id="top">
@@ -141,23 +170,12 @@ const jsonLdEvent = {
     <!-- Footer -->
     <FooterMain settings={ settings } />
 
-    <!-- Sticky CTA (sempre con data-cta) -->
-    <a href={BASE_CTA_URL}
-       class="bs-btn fixed bottom-3 right-3 z-50 sm:bottom-4 sm:right-4"
-       data-cta aria-label="Compra biglietti">
-      { settings.demo?.title ?? "Comprar entradas" }
-    </a>
-
-    <!-- Spazio per non coprire contenuto su mobile -->
-    <style>
-      @media (max-width: 640px){ main{ padding-bottom: 72px; } }
-    </style>
-
-    <!-- Pass-through fbclid + normalizza UTM su tutte le CTA -->
+    <!-- Normalizza UTM/fbclid + reset via query -->
     <script is:inline>
       (function () {
         var q = new URLSearchParams(location.search);
         var fbclid = q.get('fbclid');
+        if (q.get('consent') === 'reset') { try { window.fenlesConsent.clear(); } catch(_){} }
         document.querySelectorAll('a[data-cta]').forEach(function (a) {
           try {
             var url = new URL(a.getAttribute('href') || '', location.origin);
@@ -172,14 +190,121 @@ const jsonLdEvent = {
       })();
     </script>
 
-    <!-- Eventi Pixel: ViewContent + ClickCTA -->
+    <!-- Cookie Banner -->
+    <div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie consent">
+      <div class="container">
+        <strong>Cookies & Privacy</strong>
+        <p style="margin:.4rem 0 0">
+          {lang === "it" ? "Usiamo cookie necessari e, previo consenso, cookie di marketing (Meta Pixel) per analytics/ads." :
+           lang === "en" ? "We use necessary cookies and, with your consent, marketing cookies (Meta Pixel) for analytics/ads." :
+                           "Usamos cookies necesarios y, con tu consentimiento, cookies de marketing (Meta Pixel) para analítica/ads."}
+          &nbsp;
+          <a href={privacyPath} target="_blank" rel="noopener">
+            {lang === "it" ? "Privacy Policy" : lang === "en" ? "Privacy Policy" : "Política de Privacidad"}
+          </a>.
+        </p>
+
+        <div class="actions">
+          <!-- Fallback inline -->
+          <button class="btn-ghost"
+                  onclick="window.__consentReject && window.__consentReject()">
+            {lang === "it" ? "Rifiuta" : lang === "en" ? "Reject" : "Rechazar"}
+          </button>
+
+          <button class="btn-primary"
+                  onclick={`window.__consentAccept && window.__consentAccept('${pixelId}')`}>
+            {lang === "it" ? "Accetta tutto" : lang === "en" ? "Accept all" : "Aceptar todo"}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AUTO-SHOW se il cookie non esiste -->
     <script is:inline>
-      try { window.fbq && window.fbq('track','ViewContent',{content_name:'HLWN Fest Landing'}); } catch(e){}
+      (function(){
+        var key='fenles_consent_v1';
+        var hasCookie = document.cookie.split('; ').some(c=>c.startsWith(key+'='));
+        if(!hasCookie){ document.getElementById('cookieBanner')?.classList.add('show'); }
+      })();
+    </script>
+
+    <!-- Funzioni fallback + controllo GDPR -->
+    <script is:inline>
+      // ACCETTA: set cookie, carica fbq, disattiva auto events, init una volta, PageView con retry, relay opzionale
+      window.__consentAccept = function (id) {
+        try {
+          var v = encodeURIComponent(JSON.stringify({necessary:true, marketing:true, ts:Date.now()}));
+          document.cookie = 'fenles_consent_v1='+v+'; Path=/; Expires='+new Date(Date.now()+31536e6).toUTCString()+'; SameSite=Lax';
+        } catch(e){}
+        document.getElementById('cookieBanner')?.classList.remove('show');
+
+        // Loader fbq (stub + script)
+        (function(f,b,e,v,n,t,s){if(f.fbq)return;
+          n=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          n.queue=[];n.loaded=true;n.version='2.0';
+          t=b.createElement(e);t.async=true;t.src=v;
+          s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s);
+          f._fbq=f._fbq||n;f.fbq=n;
+        })(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+        // Disattiva Auto Events + pushState
+        window.fbq && window.fbq('set','autoConfig',false,id);
+        window.fbq && window.fbq('disablePushState', true);
+
+        // Init una sola volta
+        if (!window.__pixelInitialized) {
+          window.fbq && window.fbq('init', id);
+          window.__pixelInitialized = true;
+        }
+
+        // PageView garantito: riprova finché SDK carico
+        (function ensurePV(tries){
+          if (window.fbq && window.fbq.loaded) {
+            window.fbq('track','PageView');
+            return;
+          }
+          if ((tries||0) < 30) setTimeout(function(){ ensurePV((tries||0)+1); }, 150);
+        })();
+
+        // (opzionale) Relay anti-blocker, se hai /api/fbpx.ts
+        try { new Image().src = "/api/fbpx?id="+id+"&ev=PageView&dl="+encodeURIComponent(location.href)+"&ts="+Date.now(); } catch(_){}
+      };
+
+      // RIFIUTA: set cookie e reset completo dello stato Pixel
+      window.__consentReject = function () {
+        try {
+          var v = encodeURIComponent(JSON.stringify({necessary:true, marketing:false, ts:Date.now()}));
+          document.cookie = 'fenles_consent_v1='+v+'; Path=/; Expires='+new Date(Date.now()+31536e6).toUTCString()+'; SameSite=Lax';
+        } catch(e){}
+        document.getElementById('cookieBanner')?.classList.remove('show');
+
+        // Reset: in modo che un successivo "Accetta" nello stesso reload funzioni sempre
+        try {
+          window.__pixelInitialized = false;
+          delete window.fbq;
+          delete window._fbq;
+        } catch(_) {}
+      };
+
+      // Delegation: CTA click → traccia SOLO con consenso vero (per eventuali link data-cta nel footer/hero)
       document.addEventListener('click', function(e){
         var btn = e.target.closest('a[data-cta]');
         if(!btn) return;
-        try { window.fbq && window.fbq('track','InitiateCheckout',{value:0,currency:'EUR'}); } catch(e){}
+        try {
+          var c = window.fenlesConsent.get();
+          if (c && c.marketing && window.fbq) window.fbq('track','InitiateCheckout',{value:0,currency:'EUR'});
+        } catch(_){}
       }, {passive:true});
+
+      // Shortcut reset tramite URL (?consent=reset)
+      (function(){
+        var q = new URLSearchParams(location.search);
+        if(q.get('consent')==='reset'){
+          document.cookie='fenles_consent_v1=; Max-Age=0; Path=/; SameSite=Lax';
+          document.getElementById('cookieBanner')?.classList.add('show');
+          history.replaceState(null,'',location.pathname);
+        }
+      })();
     </script>
   </body>
 </html>

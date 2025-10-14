@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-/* Containers */
 .bs-container {
   inline-size: min(92vw, 90rem);
   margin-inline: auto;

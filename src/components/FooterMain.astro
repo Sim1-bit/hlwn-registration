@@ -50,6 +50,11 @@ const BASE_CTA_URL =
         { settings.social_links.sort((a,b) => a.title.localeCompare(b.title)).map(item =>
           <a href={ item.link }>{ item.title }</a>
         )}
+        <!-- Cookie settings: sotto ai social (es. sotto TikTok) -->
+        <a id="cookieLink" href="#cookies" class="cookie-footer-link"
+           onclick="event.preventDefault(); document.getElementById('cookieBanner')?.classList.add('show')">
+          Cookie settings
+        </a>
       </nav>
 
     </div>
@@ -63,5 +68,20 @@ const BASE_CTA_URL =
       <a href="/credits">about / credits</a>
     </nav>
   </aside>
+
+  <!-- Localizza automaticamente la label del link -->
+  <script is:inline>
+    (function(){
+      var el = document.getElementById('cookieLink'); if(!el) return;
+      var l = (document.documentElement.getAttribute('lang')||'').toLowerCase();
+      var label = l==='it' ? 'Impostazioni cookie' : l==='en' ? 'Cookie settings' : 'Configuración de cookies';
+      el.textContent = label;
+    })();
+  </script>
+
+  <style>
+    .cookie-footer-link{ display:inline-block; margin-top:.25rem; font-size:.95rem; opacity:.9 }
+    .cookie-footer-link:hover{ opacity:1; text-decoration:underline }
+  </style>
 
 </footer>
