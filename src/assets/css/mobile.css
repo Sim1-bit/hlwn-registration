@@ -1,0 +1,49 @@
+/* CTA più grande su mobile + spazio fondo */
+@media (max-width:640px){
+  .bs-btn{ min-height:48px; padding:.9rem 1.1rem; font-size:1rem; }
+  main{ padding-bottom:80px; }
+}
+
+/* Header sticky più leggero su mobile */
+@media (max-width:640px){
+  .fx-sticky-header{
+    backdrop-filter: blur(6px) saturate(1.02);
+    -webkit-backdrop-filter: blur(6px) saturate(1.02);
+    box-shadow: 0 6px 18px rgba(0,0,0,.18);
+  }
+}
+
+/* Tipografia e spaziature mobile */
+@media (max-width:640px){
+  .bs-h1{ font-size: clamp(1.7rem, 6vw, 2.1rem); line-height:1.15; }
+  .bs-h2{ font-size: clamp(1.4rem, 5.2vw, 1.8rem); }
+  .bs-h3{ font-size: clamp(1.2rem, 4.8vw, 1.5rem); }
+  body{ line-height:1.55; }
+  .bs-container{ padding-left:1rem; padding-right:1rem; }
+}
+
+/* FAQ touch-friendly */
+.faq-item button{ padding:1rem; width:100%; text-align:left; }
+.faq-item + .faq-item{ margin-top:.5rem; }
+
+/* Evita zoom input su iOS */
+input, select, textarea{ font-size:16px; }
+:root { -webkit-text-size-adjust: 100%; }
+
+/* Niente hover su touch */
+@media (hover:none){
+  .fx-lift:hover{ transform:none; box-shadow:none; }
+  .btn-ghost-lite:hover{ transform:none; }
+}
+
+/* Countdown: decorazioni off su mobile */
+@media (max-width:640px){
+  .uc-bat,.uc-fog{ display:none; }
+}
+
+/* Accessibilità: riduci motion */
+@media (prefers-reduced-motion: reduce){
+  [data-reveal], .fx-lift, .uc-bat, .uc-fog{
+    animation:none !important; transition:none !important;
+  }
+}

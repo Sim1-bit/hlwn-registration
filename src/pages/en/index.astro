@@ -1,6 +1,5 @@
 ---
 import Layout from "../../layouts/Layout.astro"
-
 import HeroSection from "../../components/HeroSection.astro"
 import ServicesCarousel from "../../components/ServicesCarousel.astro"
 import ClientsSection from "../../components/ClientsSection.astro"
@@ -18,16 +17,10 @@ import caseStudies from "../../data/en/case_studies.json"
 import faq from "../../data/en/faq.json"
 import testimonials from "../../data/en/testimonials.json"
 
-const lang = "en"
-
-
-const BASE_CTA_URL =
-  "https://fenles.com/evento/halloween-fest-estacio-de-franca-barcelona-31-10-2025-estacio-de-franca?src=meta&utm_campaign=hlwnfest2025";
-
-const CTA_LABEL = (typeof settings !== 'undefined' && settings?.demo?.title)
-  ? settings.demo.title
-  : "Comprar entradas";
-  ---
+const lang = "en";
+const BASE_CTA_URL = "https://fenles.com/evento/halloween-fest-estacio-de-franca-barcelona-31-10-2025-estacio-de-franca?src=meta&utm_campaign=hlwnfest2025";
+const CTA_LABEL = (settings?.demo?.title) ?? "Buy tickets";
+---
 <Layout
   title={settings.title}
   description={settings.description}
@@ -37,14 +30,16 @@ const CTA_LABEL = (typeof settings !== 'undefined' && settings?.demo?.title)
   showFog={true}
   ctaHref={BASE_CTA_URL}
   ctaLabel={CTA_LABEL}
-
 >
-  <HeroSection settings={settings} title={home.hero_title} content={home.hero_content} />
-  <ServicesCarousel title={home.services_title} services={services} />
-  <ClientsSection title={home.clients_title} clients={clients} />
-  <QuoteSection content={home.quote_content} cite={home.quote_cite} role={home.quote_role} image={home.quote_image} />
-  <CaseStudiesSection title={home.case_studies_title} caseStudies={caseStudies} />
-  <TestimonialsSection title={home.testimonials_title} testimonials={testimonials} />
-  <FaqSection title={home.faq_title} faq={faq} />
-  <UrgencyCountdown lang="en" />
+  <section data-reveal><HeroSection settings={settings} title={home.hero_title} content={home.hero_content} /></section>
+  <section data-reveal><ServicesCarousel title={home.services_title} services={services} /></section>
+  <section data-reveal><ClientsSection title={home.clients_title} clients={clients} /></section>
+  <section data-reveal><QuoteSection content={home.quote_content} cite={home.quote_cite} role={home.quote_role} image={home.quote_image} /></section>
+  <section data-reveal><CaseStudiesSection title={home.case_studies_title} caseStudies={caseStudies} /></section>
+  <section data-reveal><TestimonialsSection title={home.testimonials_title} testimonials={testimonials} /></section>
+  <section data-reveal id="faq"><FaqSection title={home.faq_title} faq={faq} /></section>
+
+  <section data-reveal>
+    <UrgencyCountdown lang="en" ctaHref={BASE_CTA_URL} ctaLabel={CTA_LABEL} />
+  </section>
 </Layout>

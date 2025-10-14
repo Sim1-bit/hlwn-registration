@@ -9,7 +9,7 @@ const BASE_CTA_URL =
 
 <header class="wrapper bg-loop font-semibold">
   <div class="bs-container py-6 flex items-center gap-4">
-    <!-- Logo da /public -->
+    <!-- Logo -->
     <a class="flex xl:min-w-32 group mr-auto" href="/" aria-label={ settings.title + ' - Home' }>
       <img
         src="/content-images/fenly_logo.svg"
@@ -36,7 +36,7 @@ const BASE_CTA_URL =
 
     <!-- CTA -->
     <a href={BASE_CTA_URL} class="bs-btn" data-cta>
-      { settings.demo?.title ?? "Comprar entradas" }
+      { settings.demo?.title ?? (lang==="it" ? "Acquista biglietti" : lang==="en" ? "Buy tickets" : "Comprar entradas") }
     </a>
   </div>
 </header>

@@ -8,8 +8,9 @@ import QuoteSection from "../../components/QuoteSection.astro"
 import CaseStudiesSection from "../../components/CaseStudiesSection.astro"
 import TestimonialsSection from "../../components/TestimonialsSection.astro"
 import FaqSection from "../../components/FaqSection.astro"
-import UrgencyCountdown from "../../components/UrgencyCountdown.astro";
+import UrgencyCountdown from "../../components/UrgencyCountdown.astro"
 
+// COPIE IT
 import settings from "../../data/it/global_settings.json"
 import home from "../../data/it/home.json"
 import services from "../../data/it/services.json"
@@ -18,16 +19,18 @@ import caseStudies from "../../data/it/case_studies.json"
 import faq from "../../data/it/faq.json"
 import testimonials from "../../data/it/testimonials.json"
 
+// lingua fissa per questa pagina
 const lang = "it"
 
-
+// CTA
 const BASE_CTA_URL =
-  "https://fenles.com/evento/halloween-fest-estacio-de-franca-barcelona-31-10-2025-estacio-de-franca?src=meta&utm_campaign=hlwnfest2025";
+  "https://fenles.com/evento/halloween-fest-estacio-de-franca-barcelona-31-10-2025-estacio-de-franca?src=meta&utm_campaign=hlwnfest2025"
 
-const CTA_LABEL = (typeof settings !== 'undefined' && settings?.demo?.title)
-  ? settings.demo.title
-  : "Comprar entradas";
-  ---
+const CTA_LABEL =
+  (typeof settings !== "undefined" && settings?.demo?.title)
+    ? settings.demo.title
+    : "Acquista biglietti"
+---
 
 <Layout
   title={settings.title}
@@ -38,14 +41,29 @@ const CTA_LABEL = (typeof settings !== 'undefined' && settings?.demo?.title)
   showFog={true}
   ctaHref={BASE_CTA_URL}
   ctaLabel={CTA_LABEL}
-
 >
-  <HeroSection settings={settings} title={home.hero_title} content={home.hero_content} />
+  <HeroSection
+    settings={settings}
+    title={home.hero_title}
+    content={home.hero_content}
+  />
+
   <ServicesCarousel title={home.services_title} services={services} />
+
   <ClientsSection title={home.clients_title} clients={clients} />
-  <QuoteSection content={home.quote_content} cite={home.quote_cite} role={home.quote_role} image={home.quote_image} />
+
+  <QuoteSection
+    content={home.quote_content}
+    cite={home.quote_cite}
+    role={home.quote_role}
+    image={home.quote_image}
+  />
+
   <CaseStudiesSection title={home.case_studies_title} caseStudies={caseStudies} />
+
   <TestimonialsSection title={home.testimonials_title} testimonials={testimonials} />
+
   <FaqSection title={home.faq_title} faq={faq} />
-  <UrgencyCountdown lang="it" />
+
+  <UrgencyCountdown lang="it" ctaHref={BASE_CTA_URL} ctaLabel={CTA_LABEL} />
 </Layout>

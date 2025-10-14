@@ -1,0 +1,41 @@
+[build]
+  command = "npm run build"
+  publish  = "dist"
+  NODE_VERSION = "20"
+
+# Cache forte per asset fingerprintati
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Sicurezza + font + Meta Pixel
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Content-Type-Options = "nosniff"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+    # CSP compatibile con Astro + Google Fonts + Meta Pixel
+    Content-Security-Policy = "default-src 'self'; img-src 'self' data: https://www.facebook.com https://connect.facebook.net; script-src 'self' 'unsafe-inline' https://connect.facebook.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://www.facebook.com https://connect.facebook.net; frame-src https://www.facebook.com;"
+
+# Trailing slash coerente per sezioni lingua
+[[redirects]]
+  from = "/it"
+  to   = "/it/"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from = "/en"
+  to   = "/en/"
+  status = 301
+  force  = true
+
+# (opzionale) forza trailing slash su privacy
+[[redirects]]
+  from = "/privacy"
+  to   = "/privacy/"
+  status = 301
+  force  = true

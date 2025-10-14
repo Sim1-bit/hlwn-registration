@@ -4,8 +4,8 @@ import "../assets/css/base.css"
 import "../assets/css/typography.css"
 import "../assets/css/layout.css"
 import "../assets/css/buttons.css"
-/* NEW: effetti e animazioni leggere */
 import "../assets/css/effects.css"
+import "../assets/css/mobile.css"
 
 import { Font } from 'astro:assets'
 import Image from "astro/components/Image.astro"
@@ -13,19 +13,14 @@ import Image from "astro/components/Image.astro"
 import FooterMain from "../components/FooterMain.astro"
 import HeaderMain from "../components/HeaderMain.astro"
 
-// background hero
+// bg hero
 import bg_image from "../assets/theme-images/locandina.webp"
 
-// Props dalla pagina
+// Props
 const { title, description, settings, lang = "es" } = Astro.props
-
-// Canonical per lingua
 const canonicalUrl = settings?.base_url + (lang === "es" ? "/" : `/${lang}/`)
 
-// === CONFIG ===
-const pixelId = import.meta.env.PUBLIC_FB_PIXEL_ID ?? "1227221879183874"
-
-// OG image assoluta
+// OG
 const ogImage = settings.base_url + settings.social_image
 
 // JSON-LD Event
@@ -44,12 +39,16 @@ const jsonLdEvent = {
   "organizer": { "@type": "Organization", "name": "FENLES" }
 }
 
-// path privacy localizzato
+// privacy path
 const privacyPath = lang === "en" ? "/en/privacy" : lang === "it" ? "/it/privacy" : "/privacy";
+
+// Pixel config
+const pixelId = import.meta.env.PUBLIC_FB_PIXEL_ID ?? "1227221879183874"
 ---
 
 <html lang={lang}>
   <head>
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -61,6 +60,7 @@ const privacyPath = lang === "en" ? "/en/privacy" : lang === "it" ? "/it/privacy
     <meta name="description" content={ description ?? settings.description } />
     <meta name="theme-color" content={ settings.theme_color } />
 
+    <!-- Canonical & hreflang -->
     <link rel="canonical" href={canonicalUrl} />
     <link rel="alternate" href={settings.base_url + '/'} hreflang="es" />
     <link rel="alternate" href={settings.base_url + '/ca/'} hreflang="ca" />
@@ -68,6 +68,7 @@ const privacyPath = lang === "en" ? "/en/privacy" : lang === "it" ? "/it/privacy
     <link rel="alternate" href={settings.base_url + '/it/'} hreflang="it" />
     <link rel="alternate" href={settings.base_url + '/'} hreflang="x-default" />
 
+    <!-- Open Graph / Twitter -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={ title ?? settings.title } />
     <meta property="og:description" content={ description ?? settings.description } />
@@ -84,18 +85,19 @@ const privacyPath = lang === "en" ? "/en/privacy" : lang === "it" ? "/it/privacy
     <Font cssVariable="--font-inter" preload />
     <Font cssVariable="--font-inter-display" preload />
 
+    <!-- JSON-LD Event -->
     <script type="application/ld+json" is:inline>{JSON.stringify(jsonLdEvent)}</script>
 
-    <!-- GDPR helpers / pixel loader rimangono invariati … -->
+    <!-- Consent helper + pixel loader -->
     <script is:inline>
       window.fenlesConsent = {
-        key: 'fenles_consent_v1',
+        key:'fenles_consent_v1',
         get(){try{const r=document.cookie.split('; ').find(x=>x.startsWith(this.key+'='));return r?JSON.parse(decodeURIComponent(r.split('=')[1])):{}}catch{return{}}},
         set(o){const v=encodeURIComponent(JSON.stringify(o));const exp=new Date(Date.now()+31536e6).toUTCString();document.cookie=this.key+'='+v+'; Path=/; Expires='+exp+'; SameSite=Lax'},
         clear(){document.cookie=this.key+'=; Max-Age=0; Path=/; SameSite=Lax'},
         hasMarketing(){return !!this.get().marketing}, hasDecided(){return 'marketing' in this.get()}
       };
-      window.loadMetaPixel = function (PID) {
+      window.loadMetaPixel=function(PID){
         if(!(window.fbq&&window.fbq.loaded)){
           (function(f,b,e,v,n,t,s){if(f.fbq)return;n=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};n.queue=[];n.loaded=true;n.version='2.0';t=b.createElement(e);t.async=true;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s);f._fbq=f._fbq||n;f.fbq=n;})(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
         }
@@ -105,41 +107,45 @@ const privacyPath = lang === "en" ? "/en/privacy" : lang === "it" ? "/it/privacy
         window.fbq&&window.fbq('track','PageView');
       };
     </script>
+
+    <!-- Cookie banner styles -->
+    <style>
+      .cookie-banner{ position:fixed;left:0;right:0;bottom:0;z-index:99999;background:rgba(16,16,26,.98);color:#e6e6f0;border-top:1px solid rgba(167,139,250,.25);padding:14px 16px;display:none; }
+      .cookie-banner.show{ display:block; }
+      .cookie-banner .actions{ display:flex;gap:10px;flex-wrap:wrap;margin-top:10px; }
+      .btn-ghost{ background:#262636;color:#e6e6f0;border:1px solid #3b3b55;padding:10px 14px;border-radius:12px; }
+      .btn-primary{ background:#7c3aed;color:#fff;padding:10px 14px;border-radius:12px;border:0; }
+      .cookie-banner a{ color:#a78bfa;text-decoration: underline; }
+    </style>
   </head>
 
   <body id="top">
     <a class="fixed -top-20 focus-visible:top-0 p-3 bg-black/90 transition-all duration-300" href="#main">Skip to content</a>
 
     <!-- bg image -->
-    <Image src={ bg_image } alt="" format="avif" height={1080} width={1920}
-      class="absolute min-h-svh object-cover inset-0 bottom-auto -z-1 w-full h-auto opacity-20 mask-b-from-50%"
+    <Image
+      src={ bg_image } alt=""
+      format="avif,webp"
+      height={1080} width={1920}
+      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
+      class="fixed inset-0 -z-10 w-full h-full object-cover opacity-20"
+style="pointer-events:none"
       loading="eager" />
 
-    <!-- 1) HEADER STICKY + BLUR -->
+    <!-- Header -->
     <header class="fx-sticky-header" data-reveal>
       <HeaderMain settings={ settings } lang={lang} />
     </header>
 
+    <!-- Main -->
     <main id="main">
       <slot />
     </main>
 
-    <!-- 3) SEPARATORE “vellutato” prima del footer -->
-    <div class="fx-sep" aria-hidden="true"></div>
-
+    <!-- Footer -->
     <FooterMain settings={ settings } />
 
-    <!-- Cookie banner e GDPR script rimangono identici a prima -->
-    <!-- AUTO-SHOW banner -->
-    <script is:inline>
-      (function(){
-        var key='fenles_consent_v1';
-        var hasCookie=document.cookie.split('; ').some(c=>c.startsWith(key+'='));
-        if(!hasCookie){ document.getElementById('cookieBanner')?.classList.add('show'); }
-      })();
-    </script>
-
-    <!-- Accept / Reject / CTA tracking (come versione precedente) -->
+    <!-- Accept / Reject / CTA tracking -->
     <script is:inline>
       window.__consentAccept=function(id){
         try{var v=encodeURIComponent(JSON.stringify({necessary:true,marketing:true,ts:Date.now()}));
@@ -168,7 +174,18 @@ const privacyPath = lang === "en" ? "/en/privacy" : lang === "it" ? "/it/privacy
       },{passive:true});
     </script>
 
-    <!-- 4) REVEAL ON SCROLL leggero (pausa offscreen) -->
+    <!-- AUTO-SHOW banner (fix: aspetta il DOM o riprova finché esiste) -->
+    <script is:inline>
+      (function showWhenReady(){
+        var key = 'fenles_consent_v1';
+        if (document.cookie.split('; ').some(c => c.startsWith(key + '='))) return;
+        var el = document.getElementById('cookieBanner');
+        if (el) { el.classList.add('show'); return; }
+        requestAnimationFrame(showWhenReady);
+      })();
+    </script>
+
+    <!-- Reveal on scroll -->
     <script is:inline>
       (function(){
         var els = document.querySelectorAll('[data-reveal]');
@@ -181,5 +198,23 @@ const privacyPath = lang === "en" ? "/en/privacy" : lang === "it" ? "/it/privacy
         els.forEach(el=>io.observe(el));
       })();
     </script>
+
+    <!-- Cookie Banner -->
+    <div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie consent">
+      <div class="container">
+        <strong>Cookies & Privacy</strong>
+        <p style="margin:.4rem 0 0">
+          {lang === "it" ? "Usiamo cookie necessari e, previo consenso, cookie di marketing (Meta Pixel) per analytics/ads." :
+           lang === "en" ? "We use necessary cookies and, with your consent, marketing cookies (Meta Pixel) for analytics/ads." :
+                           "Usamos cookies necesarios y, con tu consentimiento, cookies de marketing (Meta Pixel) para analítica/ads."}
+          &nbsp;
+          <a href={privacyPath} target="_blank" rel="noopener">{lang === "it" ? "Privacy Policy" : lang === "en" ? "Privacy Policy" : "Política de Privacidad"}</a>.
+        </p>
+        <div class="actions">
+          <button class="btn-ghost" onclick="window.__consentReject && window.__consentReject()">{lang === "it" ? "Rifiuta" : lang === "en" ? "Reject" : "Rechazar"}</button>
+          <button class="btn-primary" onclick={`window.__consentAccept && window.__consentAccept('${pixelId}')`}>{lang === "it" ? "Accetta tutto" : lang === "en" ? "Accept all" : "Aceptar todo"}</button>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
