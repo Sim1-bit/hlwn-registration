@@ -1,6 +1,7 @@
 [
-  { "title": "Acceso al evento", "content": "Entrada general para Halloween Fest.", "cta": "Comprar", "image": "/content-images/sv-acceso.jpg" },
-  { "title": "Show & ambientación", "content": "Luces, visuales, efectos especiales y performances.", "cta": "Comprar", "image": "/content-images/sv-show.jpg" },
-  { "title": "Concurso de disfraces", "content": "Premios a los mejores looks de la noche.", "cta": "Comprar", "image": "/content-images/sv-disfraces.jpg" },
-  { "title": "Zona de fotos", "content": "Photo spots temáticos para compartir en redes.", "cta": "Comprar", "image": "/content-images/sv-fotos.jpg" }
+  { "title": "Monster Karaoke", "content": "¡Libera tu voz monstruosa y canta tus canciones favoritas con amigos… si te atreves! 🎤👻", "cta": "Gratuito", "image": "/content-images/karaoke.webp" },
+  { "title": "Lectura de tarot", "content": "Descubre los misterios de tu futuro con las hábiles manos de nuestra lectora de tarot. ¡Magia y escalofríos garantizados! 🔮🕯️", "cta": "Comprar", "image": "/content-images/tarot.webp" },
+  { "title": "Concurso de disfraces", "content": "¡Muestra tu disfraz más creativo y participa en el concurso más espeluznante del año! 🧛‍♂️🎭", "cta": "Gratuito", "image": "/content-images/costumes.webp" },
+  { "title": "Zona de fotos", "content": "¡Inmortalízate en nuestros rincones fotográficos de Halloween: ataúd, lápidas y mucha atmósfera terrorífica! 📸", "cta": "Gratuito", "image": "/content-images/photos.webp" },
+  { "title": "Artista de caricaturas en vivo", "content": "¡Llévate un recuerdo divertido! <b><a href=\"https://vitamynacaricaturista.com/\">Vitamyna Caricaturista</a></b> transformará a ti y a tus amigos en caricaturas espeluznantes! 🎨👹", "cta": "Comprar", "image": "/content-images/carictirst.webp" }
 ]

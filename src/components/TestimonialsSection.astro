@@ -1,34 +1,55 @@
 ---
-
 const { title, testimonials } = Astro.props
-
 ---
 
 <section class="bs-container bs-mt-lg">
-
   <!-- Title -->
-  { title && <h2 class="bs-h2 text-center md:text-left">{ title }</h2>}
+  {title && <h2 class="bs-h2 text-center md:text-left mb-8">{title}</h2>}
 
-  <!-- Testimonials -->
-  <div class="group bs-mt-md grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 place-content-center gap-4">
+  <!-- Testimonials Grid -->
+  <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
+    {testimonials.map((item, index) => (
+      <blockquote class="testimonial-card bg-bs-surface-2 border border-bs-surface-3 p-4 rounded-md flex flex-col gap-3" data-index={index}>
+        
+        {item.title && <h4 class="text-base md:text-lg font-semibold">{item.title}</h4>}
+        {item.date && <span class="text-xs text-bs-foreground-muted">{item.date}</span>}
 
-    <!-- Quote -->
-    { testimonials.map( item =>
+        <p class="quote text-sm lg:text-lg line-clamp" set:html={item.quote}></p>
 
-      <blockquote
-        class:list={["group-hover:opacity-75 hover:opacity-100 duration-300 p-3 md:p-5 flex flex-col gap-3 justify-between border rounded-md bg-bs-surface-2 border-bs-surface-3 transition-all grid-flow-dense", item.quote.length > 100 ? "lg:col-span-2" : ""]}>
+        {item.quote.length > 50 && <button class="toggle-btn text-bs-primary font-semibold text-sm mt-1 self-start hover:underline"><+></button>}
 
-        <!-- Text -->
-        <p set:html={ item.quote } class:list={["text-sm lg:text-lg", item.quote.length > 100 ? "line-clamp-4 lg:line-clamp-none" : ""]} />
+        {item.image && <img src={item.image} alt={`Image for ${item.title || item.handle}`} class="rounded-md w-full object-cover max-h-48 mt-2" />}
 
-        <!-- Cite -->
-        <cite class="not-italic text-bs-foreground-dark text-sm font-semibold">@{ item.handle }</cite>
+        {item.videoUrl && <a href={item.videoUrl} target="_blank" rel="noopener noreferrer" class="text-bs-primary font-semibold mt-2 inline-block">TikTok ↗</a>}
+
+        <cite class="not-italic text-bs-foreground-dark text-sm font-semibold mt-2">@{item.handle}</cite>
 
       </blockquote>
-
-    )}
-
+    ))}
   </div>
-
 </section>
 
+<script is:raw>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".testimonial-card").forEach(card => {
+      const btn = card.querySelector(".toggle-btn");
+      const p = card.querySelector(".quote");
+      if(btn){
+        btn.addEventListener("click", () => {
+          p.classList.toggle("line-clamp");
+          btn.textContent = p.classList.contains("line-clamp") ? "<+>" : "< - >";
+        });
+      }
+    });
+  });
+</script>
+
+<style>
+  /* Line clamp per testi lunghi */
+  .line-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

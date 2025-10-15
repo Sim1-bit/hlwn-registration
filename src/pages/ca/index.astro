@@ -1,0 +1,45 @@
+---
+import Layout from "../../layouts/Layout.astro"
+import HeroSection from "../../components/HeroSection.astro"
+import ServicesCarousel from "../../components/ServicesCarousel.astro"
+import ClientsSection from "../../components/ClientsSection.astro"
+import QuoteSection from "../../components/QuoteSection.astro"
+import LineupSection from "../../components/LineupSection.astro"
+import TestimonialsSection from "../../components/TestimonialsSection.astro"
+import FaqSection from "../../components/FaqSection.astro"
+import UrgencyCountdown from "../../components/UrgencyCountdown.astro";
+
+import settings from "../../data/ca/global_settings.json"
+import home from "../../data/ca/home.json"
+import services from "../../data/ca/services.json"
+import clients from "../../data/ca/clients.json"
+import lineup from "../../data/ca/lineup.json"
+import faq from "../../data/ca/faq.json"
+import testimonials from "../../data/ca/testimonials.json"
+
+const lang = "ca";
+const BASE_CTA_URL = "https://fenles.com/evento/halloween-fest-estacio-de-franca-barcelona-31-10-2025-estacio-de-franca?src=meta&utm_campaign=hlwnfest2025";
+const CTA_LABEL = (settings?.demo?.title) ?? "Buy tickets";
+---
+<Layout
+  title={settings.title}
+  description={settings.description}
+  settings={settings}
+  lang={lang}
+  showStickyCta={true}
+  showFog={true}
+  ctaHref={BASE_CTA_URL}
+  ctaLabel={CTA_LABEL}
+>
+  <section data-reveal><HeroSection settings={settings} title={home.hero_title} content={home.hero_content} /></section>
+  <section data-reveal><ServicesCarousel title={home.services_title} services={services} /></section>
+  <section data-reveal><ClientsSection title={home.clients_title} clients={clients} /></section>
+  <section data-reveal><QuoteSection content={home.quote_content} cite={home.quote_cite} role={home.quote_role} image={home.quote_image} /></section>
+  <section data-reveal><LineupSection title={home.lineup_title} lineup={lineup} /></section>
+  <section data-reveal><TestimonialsSection title={home.testimonials_title} testimonials={testimonials} /></section>
+  <section data-reveal id="faq"><FaqSection title={home.faq_title} faq={faq} /></section>
+
+  <section data-reveal>
+    <UrgencyCountdown lang="ca" ctaHref={BASE_CTA_URL} ctaLabel={CTA_LABEL} />
+  </section>
+</Layout>

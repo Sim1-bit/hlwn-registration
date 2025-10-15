@@ -5,7 +5,7 @@ import HeroSection from "../../components/HeroSection.astro"
 import ServicesCarousel from "../../components/ServicesCarousel.astro"
 import ClientsSection from "../../components/ClientsSection.astro"
 import QuoteSection from "../../components/QuoteSection.astro"
-import CaseStudiesSection from "../../components/CaseStudiesSection.astro"
+import LineupSection from "../../components/LineupSection.astro"
 import TestimonialsSection from "../../components/TestimonialsSection.astro"
 import FaqSection from "../../components/FaqSection.astro"
 import UrgencyCountdown from "../../components/UrgencyCountdown.astro"
@@ -15,7 +15,7 @@ import settings from "../../data/it/global_settings.json"
 import home from "../../data/it/home.json"
 import services from "../../data/it/services.json"
 import clients from "../../data/it/clients.json"
-import caseStudies from "../../data/it/case_studies.json"
+import lineup from "../../data/it/lineup.json"
 import faq from "../../data/it/faq.json"
 import testimonials from "../../data/it/testimonials.json"
 
@@ -59,7 +59,7 @@ const CTA_LABEL =
     image={home.quote_image}
   />
 
-  <CaseStudiesSection title={home.case_studies_title} caseStudies={caseStudies} />
+  <LineupSection title={home.lineup_title} lineup={lineup} />
 
   <TestimonialsSection title={home.testimonials_title} testimonials={testimonials} />
 
