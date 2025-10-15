@@ -1,7 +1,7 @@
 [
-  { "title": "Monster Karaoke", "content": "Karaoke", "cta": "Gratuito", "image": "/content-images/sv-acceso.jpg" },
-  { "title": "Tarot Reading", "content": "Leggi il tuo destino.", "cta": "A pagamento", "image": "/content-images/sv-show.jpg" },
-  { "title": "Costume contest", "content": "Competi insieme ad altri per mostrare chi ha il miglior costume", "cta": "Gratuito", "image": "/content-images/sv-disfraces.jpg" },
-  { "title": "Photo spots", "content": "Area a tema dedicata alle foto.", "cta": "Gratuito", "image": "/content-images/sv-fotos.jpg" },
-  { "title": "Caricaturista", "content": "Un artista che disegnera la tua caricatura", "cta": "A pagamento", "image": "/content-images/sv-fotos.jpg" }
+  { "title": "Monster Karaoke", "content": "Karaoke", "cta": "Gratuito", "image": "/content-images/karaoke.webp" },
+  { "title": "Tarot Reading", "content": "Leggi il tuo destino.", "cta": "A pagamento", "image": "/content-images/tarot.webp" },
+  { "title": "Costume contest", "content": "Competi insieme ad altri per mostrare chi ha il miglior costume", "cta": "Gratuito", "image": "/content-images/costumes.webp" },
+  { "title": "Photo spots", "content": "Area a tema dedicata alle foto.", "cta": "Gratuito", "image": "/content-images/photos.webp" },
+  { "title": "Caricaturista", "content": "Un artista che disegnera la tua caricatura", "cta": "A pagamento", "image": "/content-images/carictirst.webp" }
 ]
