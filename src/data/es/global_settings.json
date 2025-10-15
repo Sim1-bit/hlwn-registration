@@ -7,7 +7,7 @@
   "demo": { "title": "Comprar entradas", "cta": "Comprar entradas" },
   "nav": [
     { "title": "Servicios", "link": "/#services" },
-    { "title": "Case studies", "link": "/#case-studies" },
+    { "title": "Lineup", "link": "/#lineup" },
     { "title": "FAQ", "link": "/#faq" }
   ],
   "social_links": [
