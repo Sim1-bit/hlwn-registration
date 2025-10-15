@@ -16,7 +16,7 @@ const { title, testimonials } = Astro.props
 
         <p class="quote text-sm lg:text-lg line-clamp" set:html={item.quote}></p>
 
-        {item.quote.length > 100 && <button class="toggle-btn text-bs-primary font-semibold text-sm mt-1 self-start hover:underline"><+></button>}
+        {item.quote.length > 50 && <button class="toggle-btn text-bs-primary font-semibold text-sm mt-1 self-start hover:underline"><+></button>}
 
         {item.image && <img src={item.image} alt={`Image for ${item.title || item.handle}`} class="rounded-md w-full object-cover max-h-48 mt-2" />}
 
