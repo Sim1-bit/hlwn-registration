@@ -1,4 +1,37 @@
 [
-  { "quote": "Tipuana Tipu<br>Lanzamos FENLES Sound, una serie de conciertos acústicos donde la música suena de verdad, cerquita, como nunca antes la habías vivido.<br>Para estrenar esta locura nos acompaña Tipuana Tipu, en un formato muy exclusivo, de esos que solo unos pocos podrán contar.<br>Las entradas son súper limitadas y todo lo que recaudemos irá directamente para el artista, para seguir impulsando su música.<br>Si te gustan los conciertos íntimos, el rollo tiny desk y apoyar a quienes están rompiendo los moldes, este es tu sitio.<br>Corre, porque cuando te enteres que fue increíble, ya será tarde.", "handle": "@laura_bcn" },
-  { "quote": "Ambientazo y organización de 10. Halloween top.", "handle": "@marc_x" }
+  {
+    "quote": "Evento de lanzamiento de FENLES Sound con conciertos acústicos íntimos, donde la música se podía escuchar de cerca. Tipuana Tipu actuó en un formato exclusivo y todos los ingresos fueron para el artista. Una oportunidad única para los amantes de la música íntima e innovadora.",
+    "date": "17/04/2025",
+    "title": "Tipuana Tipu",
+    "videoUrl": "https://www.tiktok.com/@fenles_official/photo/7494179831278619926",
+    "handle": "tipuanatipu10"
+  },
+  {
+    "quote": "¡El karaoke más descarado y épico de Barcelona volvió para la segunda edición, esta vez con disfraces de carnaval!<br>Los asistentes cantaron sus temas favoritos como si nadie los estuviera mirando.<br>A partir de las 00:30 el micrófono se apagó… pero la fiesta explotó con un DJ set imperdible.<br>Disfraces, música y vibes increíbles: los lugares eran limitados, porque también la exclusividad se canta.",
+    "date": "01/03/2025",
+    "title": "Karaoke de Carnaval",
+    "videoUrl": "https://www.tiktok.com/@fenles_official/video/7471992822963457302",
+    "handle": "diobar"
+  },
+  {
+    "quote": "La Fiesta de Karaoke del 25 de enero en Diobar fue el plan perfecto para empezar el 2025 a lo grande.",
+    "date": "25/01/2025",
+    "title": "FENLES Karaoke Party en Barcelona!",
+    "videoUrl": "https://www.tiktok.com/@fenles_official/photo/7460206361993874720",
+    "handle": "diobar"
+  },
+  {
+    "quote": "La deliciosa comida de Blau<br>Premios fantásticos<br>Y sobre todo… VOSOTROS, nuestros amigos, que hicisteis el día único!<br>Gracias a todos los participantes por llenar el día de risas y magia, incluso lejos de Italia. 🇮🇹<br>No veíamos la hora de repetirlo el próximo año! Mientras tanto, os esperamos en todos los eventos de Festa Italiana de Barcelona y @fenles_official del próximo año.",
+    "date": "09/12/2024",
+    "title": "Festa Italiana de Barcelona",
+    "videoUrl": "https://www.tiktok.com/@fenles_official/video/7446517994655698209",
+    "handle": "familiablau"
+  },
+  {
+    "quote": "Nos encantó apoyar el talento local también esta vez en Badajoz.",
+    "date": "16/11/2023",
+    "title": "Made In Badajoz Festival – Winter Session.",
+    "videoUrl": "https://www.tiktok.com/@fenles_official/video/7302150276159442209",
+    "handle": "madeinbadajoz"
+  }
 ]
