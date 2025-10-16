@@ -17,7 +17,7 @@ import HeaderMain from "../components/HeaderMain.astro"
 import bg_image from "../assets/theme-images/locandina.webp"
 
 // Props
-const { title, description, settings = {}, lang = "es" } = Astro.props
+const { title, description, settings, lang = "es" } = Astro.props
 const canonicalUrl = (settings.base_url ?? '/') + (lang === "es" ? "/" : `/${lang}/`)
 
 // OG
@@ -126,7 +126,7 @@ const pixelId = import.meta.env.PUBLIC_FB_PIXEL_ID ?? "1227221879183874"
     <!-- bg image -->
     <Image
       src={ bg_image } alt=""
-      format="avif,webp"
+      format="webp"
       height={1080} width={1920}
       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
       class="fixed inset-0 -z-10 w-full h-full object-cover opacity-20"
