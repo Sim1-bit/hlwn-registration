@@ -17,11 +17,12 @@ import HeaderMain from "../components/HeaderMain.astro"
 import bg_image from "../assets/theme-images/locandina.webp"
 
 // Props
-const { title, description, settings, lang = "es" } = Astro.props
-const canonicalUrl = settings?.base_url + (lang === "es" ? "/" : `/${lang}/`)
+const { title, description, settings = {}, lang = "es" } = Astro.props
+const canonicalUrl = (settings.base_url ?? '/') + (lang === "es" ? "/" : `/${lang}/`)
 
 // OG
-const ogImage = settings.base_url + settings.social_image
+const ogImage = (settings.base_url ?? '') + (settings.social_image ?? '')
+
 
 // JSON-LD Event
 const jsonLdEvent = {
