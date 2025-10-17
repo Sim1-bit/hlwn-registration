@@ -1,5 +1,5 @@
 ---
-const { title, testimonials } = Astro.props
+const { title, testimonials, show } = Astro.props
 ---
 
 <section class="bs-container bs-mt-lg">
@@ -16,7 +16,12 @@ const { title, testimonials } = Astro.props
 
         <p class="quote text-sm lg:text-lg line-clamp" set:html={item.quote}></p>
 
-        {item.quote.length > 50 && <button class="toggle-btn text-bs-primary font-semibold text-sm mt-1 self-start hover:underline"><+></button>}
+        {item.quote.length > 50 && (
+          <button class="toggle-btn text-bs-primary font-semibold text-sm mt-1 self-start hover:underline"
+                  data-more={show.more} data-less={show.less}>
+            {show.more}
+          </button>
+        )}
 
         {item.image && <img src={item.image} alt={`Image for ${item.title || item.handle}`} class="rounded-md w-full object-cover max-h-48 mt-2" />}
 
@@ -34,12 +39,20 @@ const { title, testimonials } = Astro.props
     document.querySelectorAll(".testimonial-card").forEach(card => {
       const btn = card.querySelector(".toggle-btn");
       const p = card.querySelector(".quote");
-      if(btn){
-        btn.addEventListener("click", () => {
-          p.classList.toggle("line-clamp");
-          btn.textContent = p.classList.contains("line-clamp") ? "<+>" : "< - >";
-        });
+
+      if(!btn) return; // se non c'è il bottone, salta
+
+      // Mostra il bottone solo se c'è overflow
+      if (p.scrollHeight <= p.clientHeight) {
+        btn.style.display = "none";
       }
+
+      btn.addEventListener("click", () => {
+        p.classList.toggle("line-clamp");
+        btn.textContent = p.classList.contains("line-clamp") 
+          ? btn.dataset.more 
+          : btn.dataset.less;
+      });
     });
   });
 </script>
