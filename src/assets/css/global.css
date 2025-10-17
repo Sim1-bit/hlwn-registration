@@ -115,7 +115,7 @@ body{ background: var(--bg); color: #fff; }
     drop-shadow(0 8px 24px rgba(0,0,0,.45))
     drop-shadow(0 0 28px rgba(143,63,255,.36))   /* viola brand */
     drop-shadow(0 0 16px rgba(255,216,51,.24));  /* giallo accent */
-  animation: hlwn-float 6s ease-in-out infinite;
+  /*animation: hlwn-float 6s ease-in-out infinite;*/
   will-change: transform;
 }
 
