@@ -210,11 +210,11 @@ style="pointer-events:none"
            lang === "ca" ? "Utilitzem galetes necessàries i, amb el teu consentiment, galetes de màrqueting (Meta Pixel) per a anàlisi/publicitat." :
                            "Usamos cookies necesarios y, con tu consentimiento, cookies de marketing (Meta Pixel) para analítica/ads."}
           &nbsp;
-          <a href={privacyPath} target="_blank" rel="noopener">{lang === "it" ? "Privacy Policy" : lang === "en" ? "Privacy Policy" : "Política de Privacidad"}</a>.
+          <a href={privacyPath} target="_blank" rel="noopener">{lang === "it" ? "Privacy Policy" : lang === "en" ? "Privacy Policy" : lang === "ca" ? "Política de privacitat" : "Política de Privacidad"}</a>.
         </p>
         <div class="actions">
-          <button class="btn-ghost" onclick="window.__consentReject && window.__consentReject()">{lang === "it" ? "Rifiuta" : lang === "en" ? "Reject" : "Rechazar"}</button>
-          <button class="btn-primary" onclick={`window.__consentAccept && window.__consentAccept('${pixelId}')`}>{lang === "it" ? "Accetta tutto" : lang === "en" ? "Accept all" : "Aceptar todo"}</button>
+          <button class="btn-ghost" onclick="window.__consentReject && window.__consentReject()">{lang === "it" ? "Rifiuta" : lang === "en" ? "Reject" : lang === "ca" ? "Rebutjar" : "Rechazar"}</button>
+          <button class="btn-primary" onclick={`window.__consentAccept && window.__consentAccept('${pixelId}')`}>{lang === "it" ? "Accetta tutto" : lang === "en" ? "Accept all" : lang === "ca" ? "Acceptar-ho tot" : "Aceptar todo"}</button>
         </div>
       </div>
     </div>
