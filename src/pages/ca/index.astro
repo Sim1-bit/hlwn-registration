@@ -5,7 +5,6 @@ import ServicesCarousel from "../../components/ServicesCarousel.astro"
 import ClientsSection from "../../components/ClientsSection.astro"
 import QuoteSection from "../../components/QuoteSection.astro"
 import LineupSection from "../../components/LineupSection.astro"
-import TestimonialsSection from "../../components/TestimonialsSection.astro"
 import FaqSection from "../../components/FaqSection.astro"
 import UrgencyCountdown from "../../components/UrgencyCountdown.astro";
 
@@ -15,7 +14,6 @@ import services from "../../data/ca/services.json"
 import clients from "../../data/ca/clients.json"
 import lineup from "../../data/ca/lineup.json"
 import faq from "../../data/ca/faq.json"
-import testimonials from "../../data/ca/testimonials.json"
 import show from "../../data/ca/show.json"
 
 const lang = "ca";
@@ -37,7 +35,6 @@ const CTA_LABEL = (settings?.demo?.title) ?? "Buy tickets";
   <section data-reveal><ClientsSection title={home.clients_title} clients={clients} /></section>
   <section data-reveal><QuoteSection content={home.quote_content} cite={home.quote_cite} role={home.quote_role} image={home.quote_image} /></section>
   <section data-reveal><LineupSection title={home.lineup_title} lineup={lineup} /></section>
-  <section data-reveal><TestimonialsSection title={home.testimonials_title} testimonials={testimonials} show={show} /></section>
   <section data-reveal id="faq"><FaqSection title={home.faq_title} faq={faq} /></section>
 
   <section data-reveal>
