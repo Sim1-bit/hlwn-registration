@@ -33,15 +33,32 @@ const jsonLdEvent = {
   "endDate": "2025-11-01T02:30:00+02:00",
   "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
   "eventStatus": "https://schema.org/EventScheduled",
-  "location": { "@type": "Place", "name": "Estació de França", "address": "Barcelona, Spain" },
-  "image": [ogImage],
-  "description": "Festival di Halloween con concerti, DJ, rumba catalana e un’atmosfera immersiva nel cuore di Barcellona. Biglietti da 10 €.",
-  "offers": { "@type": "AggregateOffer", "lowPrice": "10", "highPrice": "15", "priceCurrency": "EUR", "url": settings?.base_url },
-  "organizer": { "@type": "Organization", "name": "FENLES" }
+  "location": { 
+    "@type": "Place", 
+    "name": "Estació de França", 
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Barcelona",
+      "addressCountry": "ES"
+    }
+  },
+  "image": [ogImage || `${settings.base_url}/default-image.jpg`],
+  "description": description || settings.description || "Festival di Halloween con concerti, DJ, rumba catalana e un’atmosfera immersiva nel cuore di Barcellona. Biglietti da 10 €.",
+  "offers": { 
+    "@type": "AggregateOffer", 
+    "lowPrice": "10", 
+    "highPrice": "15", 
+    "priceCurrency": "EUR", 
+    "url": settings?.base_url || "https://hlwnfest.com"
+  },
+  "organizer": { 
+    "@type": "Organization", 
+    "name": "FENLES"
+  }
 }
 
 // privacy path
-const privacyPath = lang === "en" ? "/en/privacy" : lang === "it" ? "/it/privacy" : "/privacy";
+const privacyPath = lang === "en" ? "/en/privacy" : lang === "it" ? "/it/privacy" : lang === "ca" ? "/ca/privacy" : "/privacy";
 
 // Pixel config
 const pixelId = import.meta.env.PUBLIC_FB_PIXEL_ID ?? "1227221879183874"
