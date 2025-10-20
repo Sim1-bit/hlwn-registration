@@ -2,9 +2,10 @@
 import esCopy from "../data/es/urgency.json";
 import enCopy from "../data/en/urgency.json";
 import itCopy from "../data/it/urgency.json";
+import caCopy from "../data/ca/urgency.json";
 
 const { lang = "es", ctaHref = "", ctaLabel } = Astro.props;
-const L = (lang === "it" ? itCopy : lang === "en" ? enCopy : esCopy);
+const L = (lang === "it" ? itCopy : lang === "en" ? enCopy : lang === "ca" ? caCopy : esCopy);
 const LABEL = ctaLabel ?? L.cta ?? "Comprar entradas";
 ---
 
@@ -116,11 +117,11 @@ const LABEL = ctaLabel ?? L.cta ?? "Comprar entradas";
   <script is:inline>
     (function(){
       function endOfTomorrowLocal(){ const t=new Date(); t.setDate(t.getDate()+1); t.setHours(23,59,59,999); return t; }
-      const T2_END = new Date("2025-10-30T23:59:59+02:00");
+      const T1_END = new Date("2025-10-15T23:59:59+00:00");
+      const T2_END = new Date("2025-10-30T23:59:59+00:00");
       const T3_END = new Date("2025-10-31T23:59:59+02:00");
       function tierState(now){
-        const t1 = endOfTomorrowLocal();
-        if(now<=t1) return {price:"10 €", next:"12 €", deadline:t1, tag:"EARLY"};
+        if(now<=T1_END) return {price:"10 €", next:"12 €", deadline:T1_END, tag:"EARLY"};
         if(now<=T2_END) return {price:"12 €", next:"15 €", deadline:T2_END, tag:"MID"};
         return {price:"15 €", next:"—", deadline:T3_END, tag:"LAST"};
       }
