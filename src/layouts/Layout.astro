@@ -62,6 +62,8 @@ const privacyPath = lang === "en" ? "/en/privacy" : lang === "it" ? "/it/privacy
 
 // Pixel config
 const pixelId = import.meta.env.PUBLIC_FB_PIXEL_ID ?? "1227221879183874"
+
+console.log("JSON-LD Event:", jsonLdEvent);
 ---
 
 <html lang={lang}>
@@ -104,7 +106,8 @@ const pixelId = import.meta.env.PUBLIC_FB_PIXEL_ID ?? "1227221879183874"
     <Font cssVariable="--font-inter-display" preload />
 
     <!-- JSON-LD Event -->
-    <script type="application/ld+json" is:inline>{JSON.stringify(jsonLdEvent)}</script>
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLdEvent)} />
+
 
     <!-- Consent helper + pixel loader -->
     <script is:inline>
