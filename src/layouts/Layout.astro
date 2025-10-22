@@ -130,11 +130,11 @@ const pixelId = import.meta.env.PUBLIC_FB_PIXEL_ID ?? "1227221879183874"
 
     <!-- Cookie banner styles -->
     <style>
-      .cookie-banner{ position:fixed;left:0;right:0;bottom:0;z-index:99999;background:rgba(16,16,26,.98);color:#e6e6f0;border-top:1px solid rgba(167,139,250,.25);padding:14px 16px;display:none; }
+      .cookie-banner{ position:fixed;left:0;top:0;height:100%;width:100%;z-index:99999;background:rgba(16,16,26,.98);color:#e6e6f0;border-top:1px solid rgba(167,139,250,.25);padding:14px 16px;display:none;font-size:1.5rem;justify-content:center;align-items:center;text-align:center; }
       .cookie-banner.show{ display:block; }
       .cookie-banner .actions{ display:flex;gap:10px;flex-wrap:wrap;margin-top:10px; }
-      .btn-ghost{ background:#262636;color:#e6e6f0;border:1px solid #3b3b55;padding:10px 14px;border-radius:12px; }
-      .btn-primary{ background:#7c3aed;color:#fff;padding:10px 14px;border-radius:12px;border:0; }
+      .btn-ghost{ background:#262636;color:#e6e6f0;border:1px solid #3b3b55;padding:10px 14px;border-radius:12px;font-size:1.1rem; }
+      .btn-primary{ background:#7c3aed;color:#fff;padding:10px 14px;border-radius:12px;border:0;font-size:1.3rem; }
       .cookie-banner a{ color:#a78bfa;text-decoration: underline; }
     </style>
   </head>
@@ -196,13 +196,17 @@ style="pointer-events:none"
 
     <!-- AUTO-SHOW banner (fix: aspetta il DOM o riprova finché esiste) -->
     <script is:inline>
-      (function showWhenReady(){
-        var key = 'fenles_consent_v1';
-        if (document.cookie.split('; ').some(c => c.startsWith(key + '='))) return;
-        var el = document.getElementById('cookieBanner');
-        if (el) { el.classList.add('show'); return; }
-        requestAnimationFrame(showWhenReady);
-      })();
+      // Controlla se l'utente ha già scelto
+      const cookieAccepted = localStorage.getItem('cookiesAccepted');
+
+      if (!cookieAccepted) {
+        // Mostra il banner dopo 3 secondi
+        window.addEventListener('load', () => {
+          setTimeout(() => {
+            document.getElementById('cookieBanner').style.display = 'flex';
+          }, 3000);
+        });
+      }
     </script>
 
     <!-- Reveal on scroll -->
