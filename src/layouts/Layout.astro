@@ -196,17 +196,24 @@ style="pointer-events:none"
 
     <!-- AUTO-SHOW banner (fix: aspetta il DOM o riprova finché esiste) -->
     <script is:inline>
-      // Controlla se l'utente ha già scelto
-      const cookieAccepted = localStorage.getItem('cookiesAccepted');
+      function showBanner() {
+        const key = 'fenles_consent_v1';
+        if (document.cookie.split('; ').some(c => c.startsWith(key + '='))) return;
 
-      if (!cookieAccepted) {
-        // Mostra il banner dopo 3 secondi
-        window.addEventListener('load', () => {
-          setTimeout(() => {
-            document.getElementById('cookieBanner').style.display = 'flex';
-          }, 3000);
-        });
+        const el = document.getElementById('cookieBanner');
+        if (el) {
+          el.classList.add('show');
+          return;
+        }
+
+        requestAnimationFrame(showBanner);
       }
+
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          showBanner();
+        }, 3000);
+      });
     </script>
 
     <!-- Reveal on scroll -->
