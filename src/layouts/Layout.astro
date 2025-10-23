@@ -61,7 +61,7 @@ const jsonLdEvent = {
 const privacyPath = lang === "en" ? "/en/privacy" : lang === "it" ? "/it/privacy" : lang === "ca" ? "/ca/privacy" : "/privacy";
 
 // Pixel config
-const pixelId = import.meta.env.PUBLIC_FB_PIXEL_ID ?? "1227221879183874"
+const pixelId = "1227221879183874"
 
 ---
 
@@ -121,9 +121,9 @@ const pixelId = import.meta.env.PUBLIC_FB_PIXEL_ID ?? "1227221879183874"
         if(!(window.fbq&&window.fbq.loaded)){
           (function(f,b,e,v,n,t,s){if(f.fbq)return;n=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};n.queue=[];n.loaded=true;n.version='2.0';t=b.createElement(e);t.async=true;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s);f._fbq=f._fbq||n;f.fbq=n;})(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
         }
-        window.fbq&&window.fbq('set','autoConfig',false,'1227221879138874');
+        window.fbq&&window.fbq('set','autoConfig',false,PID);
         window.fbq&&window.fbq('disablePushState',true);
-        if(!window.__pixelInitialized){ window.fbq&&window.fbq('init','1227221879138874'); window.__pixelInitialized=true; }
+        if(!window.__pixelInitialized){ window.fbq&&window.fbq('init',PID); window.__pixelInitialized=true; }
         window.fbq&&window.fbq('track','PageView');
       };
     </script>
@@ -180,7 +180,7 @@ style="pointer-events:none"
         (function ensurePV(t){ if(window.fbq&&window.fbq.loaded){ window.fbq('track','PageView'); return; }
           if((t||0)<30) setTimeout(function(){ensurePV((t||0)+1)},150);
         })();
-        try{ new Image().src="/api/fbpx?id="+id+"&ev=PageView&dl="+encodeURIComponent(location.href)+"&ts="+Date.now(); }catch(_){}
+        try{ new Image().src="https://www.facebook.com/tr?id=1227221879138874&ev=PageView&noscript=1"; }catch(_){}
       };
       window.__consentReject=function(){
         try{var v=encodeURIComponent(JSON.stringify({necessary:true,marketing:false,ts:Date.now()}));
