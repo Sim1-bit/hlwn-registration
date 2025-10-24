@@ -49,12 +49,19 @@ const jsonLdEvent = {
     "lowPrice": "10", 
     "highPrice": "15", 
     "priceCurrency": "EUR", 
-    "url": settings?.base_url || "https://hlwnfest.com"
+    "url": settings?.base_url || "https://hlwnfest.com",
+    "availability": "https://schema.org/InStock",
+    "validFrom": "2025-10-15T00:00:00+02:00"
   },
   "organizer": { 
     "@type": "Organization", 
-    "name": "FENLES"
-  }
+    "name": "FENLES",
+    "url": settings?.base_url || "https://hlwnfest.com"
+  },
+  "performer": [
+    { "@type": "MusicGroup", "name": "DJ Avezz" },
+    { "@type": "DanceGroup", "name": "Rumba Catalana" }
+  ]
 }
 
 // privacy path
