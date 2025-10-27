@@ -1,36 +1,15 @@
 ---
-import Layout from "../../layouts/Layout.astro"
+import Layout from "../../layouts/Layout.astro";
 
-import HeroSection from "../../components/HeroSection.astro"
-import ServicesCarousel from "../../components/ServicesCarousel.astro"
-import ClientsSection from "../../components/ClientsSection.astro"
-import QuoteSection from "../../components/QuoteSection.astro"
-import LineupSection from "../../components/LineupSection.astro"
-import FaqSection from "../../components/FaqSection.astro"
-import UrgencyCountdown from "../../components/UrgencyCountdown.astro"
+import RegistrationForm from "../../components/RegistrationForm.astro";
 
-// COPIE IT
-import settings from "../../data/it/global_settings.json"
-import home from "../../data/it/home.json"
-import services from "../../data/it/services.json"
-import clients from "../../data/it/clients.json"
-import lineup from "../../data/it/lineup.json"
-import faq from "../../data/it/faq.json"
-import show from "../../data/it/show.json"
+import settings from "../../data/it/global_settings.json";
+import registration from "../../data/it/registration.json";
 
-// lingua fissa per questa pagina
-const lang = "it"
-
-// CTA
-const BASE_CTA_URL =
-  "https://fenles.com/evento/halloween-fest-estacio-de-franca-barcelona-31-10-2025-estacio-de-franca?src=meta&utm_campaign=hlwnfest2025"
-
-const CTA_LABEL =
-  (typeof settings !== "undefined" && settings?.demo?.title)
-    ? settings.demo.title
-    : "Acquista biglietti"
+const lang = "it";
+const BASE_CTA_URL = "https://fenles.com/evento/halloween-fest-estacio-de-franca-barcelona-31-10-2025-estacio-de-franca?src=meta&utm_campaign=hlwnfest2025";
+const CTA_LABEL = (settings?.demo?.title) ?? "Comprar entradas";
 ---
-
 <Layout
   title={settings.title}
   description={settings.description}
@@ -41,26 +20,6 @@ const CTA_LABEL =
   ctaHref={BASE_CTA_URL}
   ctaLabel={CTA_LABEL}
 >
-  <HeroSection
-    settings={settings}
-    title={home.hero_title}
-    content={home.hero_content}
-  />
+  <section data-reveal><RegistrationForm settings={settings} registration={registration}, lang lang={lang} /></section>
 
-  <ServicesCarousel title={home.services_title} services={services} />
-
-  <ClientsSection title={home.clients_title} clients={clients} />
-
-  <QuoteSection
-    content={home.quote_content}
-    cite={home.quote_cite}
-    role={home.quote_role}
-    image={home.quote_image}
-  />
-
-  <LineupSection title={home.lineup_title} lineup={lineup} />
-
-  <FaqSection title={home.faq_title} faq={faq} />
-
-  <UrgencyCountdown lang="it" ctaHref={BASE_CTA_URL} ctaLabel={CTA_LABEL} />
 </Layout>

@@ -62,13 +62,9 @@ if (Astro.request.method === "POST")
         {registration.name} : <input type="text" name="name" placeholder={registration.placeholders.name} required />
       </label>
 
-      <br>
-
       <label>
         {registration.surname} : <input type="text" name="surname" placeholder={registration.placeholders.surname} required />
       </label>
-
-      <br>
 
       <label>
         {registration.email} : <input type="email" name="email" placeholder={registration.placeholders.email} required />
@@ -78,13 +74,9 @@ if (Astro.request.method === "POST")
         {registration.password} : <input type="password" name="password" placeholder={registration.placeholders.password} required />
       </label>
 
-      <br>
-
       <label>
         {registration.confirmPassword} : <input type="password" name="confirmPassword" placeholder={registration.placeholders.confirmPassword} required />
       </label>
-
-      <br>
 
       <button id="boh">{registration.registerButton}</button>
   </form>
