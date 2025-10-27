@@ -90,3 +90,126 @@ if (Astro.request.method === "POST")
   </form>
 
 </section>
+
+<style is:global>
+@import url('https://fonts.googleapis.com/css2?family=Creepster&family=Inter:wght@400;600&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #000;
+  color: #e6e6f0;
+}
+
+/* === CONTAINER FORM === */
+section {
+  max-width: 420px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: rgba(20, 20, 30, 0.9);
+  border: 1px solid rgba(143, 63, 255, 0.25);
+  border-radius: 1.25rem;
+  box-shadow: 0 0 20px rgba(143, 63, 255, 0.25);
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+/* Effetto bagliore viola alternato */
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 18px rgba(143, 63, 255, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 28px rgba(255, 216, 51, 0.25);
+  }
+}
+
+/* === TITOLI === */
+.bs-h2 {
+  font-family: 'Creepster', cursive;
+  color: #ffd833;
+  font-size: 2.2rem;
+  text-shadow: 0 0 8px rgba(255, 216, 51, 0.6);
+}
+
+/* === LABELS === */
+form label {
+  display: block;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #d4c9ff;
+}
+
+/* === INPUTS === */
+form input {
+  width: 100%;
+  background: #1b1b1b;
+  color: #ffd833;
+  border: 1px solid rgba(143, 63, 255, 0.5);
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.8rem;
+  margin-top: 0.3rem;
+  transition: all 0.25s ease;
+}
+
+form input::placeholder {
+  color: #8f8f8f;
+  opacity: 0.8;
+}
+
+form input:focus {
+  outline: none;
+  border-color: #8f3fff;
+  box-shadow: 0 0 10px rgba(143, 63, 255, 0.6);
+  background-color: #141414;
+  transform: scale(1.02);
+}
+
+/* === BUTTON === */
+button {
+  width: 100%;
+  margin-top: 1rem;
+  background: linear-gradient(90deg, #8f3fff 0%, #ffd833 100%);
+  color: #000;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 0.75rem;
+  padding: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+button:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(255, 216, 51, 0.4);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* === ERRORI === */
+.error-msg {
+  font-size: 0.9rem;
+  color: #ff4d4d;
+  margin-top: -0.5rem;
+  margin-bottom: 0.8rem;
+  display: block;
+  font-style: italic;
+}
+
+/* === MOBILE === */
+@media (max-width: 500px) {
+  section {
+    margin: 2rem 1rem;
+    padding: 1.5rem;
+  }
+  .bs-h2 {
+    font-size: 1.8rem;
+  }
+}
+
+</style>
