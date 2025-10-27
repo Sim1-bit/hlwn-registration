@@ -1,0 +1,23 @@
+{
+    "title": "Registrazione",
+    "name": "Nome",
+    "surname": "Cognome",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Conferma Password",
+    "registerButton": "Registrati",
+    "placeholders": {
+        "name": "Inserisci il tuo nome",
+        "surname": "Inserisci il tuo cognome",
+        "email": "Inserisci la tua email",
+        "password": "Inserisci la tua password",
+        "confirmPassword": "Conferma la tua password"
+    },
+    "errors": {
+        "nameToShort": "Il nome utente è troppo corto.",
+        "surnameToShort": "Il nome utente è troppo corto.",
+        "emailInvalid": "L'indirizzo email non è valido.",
+        "passwordsDoNotMatch": "Le password non corrispondono.",
+        "passwordRequirements": "La password deve contenere almeno 8 caratteri, una lettera maiuscola, una lettera minuscola e un numero."
+    }
+}

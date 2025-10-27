@@ -10,9 +10,6 @@ import "../assets/css/mobile.css"
 import { Font } from 'astro:assets'
 import Image from "astro/components/Image.astro"
 
-import FooterMain from "../components/FooterMain.astro"
-import HeaderMain from "../components/HeaderMain.astro"
-
 // bg hero
 import bg_image from "../assets/theme-images/locandina.webp"
 
@@ -147,7 +144,6 @@ const pixelId = "1227221879138874"
   </head>
 
   <body id="top">
-    <a class="fixed -top-20 focus-visible:top-0 p-3 bg-black/90 transition-all duration-300" href="#main">Skip to content</a>
 
     <!-- bg image -->
     <Image
@@ -159,18 +155,10 @@ const pixelId = "1227221879138874"
 style="pointer-events:none"
       loading="eager" />
 
-    <!-- Header -->
-    <header class="fx-sticky-header" data-reveal>
-      <HeaderMain settings={ settings } lang={lang} />
-    </header>
-
     <!-- Main -->
     <main id="main">
       <slot />
     </main>
-
-    <!-- Footer -->
-    <FooterMain settings={ settings } />
 
     <!-- Accept / Reject / CTA tracking -->
     <script is:inline>

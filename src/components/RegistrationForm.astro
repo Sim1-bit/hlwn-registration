@@ -1,0 +1,92 @@
+---
+import LanguageSwitcher from './LanguageSwitcher.astro'
+
+const { settings, registration, lang } = Astro.props
+
+const errors = { name: "", surname: "", email: "", password: "" };
+if (Astro.request.method === "POST") 
+{
+  try 
+  {
+    const data = await Astro.request.formData();
+    const name = data.get("name");
+    const surname = data.get("surname");
+    const email = data.get("email");
+    const password = data.get("password");
+    const confirmPassword = data.get("confirmPassword");
+    
+    if(typeof name !== "string" || name.length < 3)
+    {
+        errors.name += registration.errors.nameToShort;
+    }
+    if(typeof surname !== "string" || surname.length < 3)
+    {
+        errors.surname += registration.errors.surnameToShort;
+    }
+    if(typeof email !== "string")
+    {
+        errors.email += registration.errors.emailInvalid;
+    }
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/;
+    i
+    if (typeof confirmPassword !== "string" || password !== confirmPassword ) 
+    {
+      errors.password += registration.errors.passwordRequirements;
+    }
+    const hasErrors = Object.values(errors).some(msg => msg)
+    if (!hasErrors) 
+    {
+      await registerUser({name, surname, email, password});
+      return Astro.redirect("");
+    }
+  } 
+  catch (error) 
+  {
+    if (error instanceof Error) 
+    {
+      console.error(error.message);
+    }
+  }
+}
+---
+<section>
+  <br>
+  <LanguageSwitcher lang={lang} />
+  <br>
+  { registration.title && <h2 class="bs-h2 text-center" set:html={ registration.title } />}
+  <br>
+
+  <!-- Form di registrazione -->
+   <form method="POST" enctype="multipart/form-data">
+      <label>
+        {registration.name} : <input type="text" name="name" placeholder={registration.placeholders.name} required />
+      </label>
+
+      <br>
+
+      <label>
+        {registration.surname} : <input type="text" name="surname" placeholder={registration.placeholders.surname} required />
+      </label>
+
+      <br>
+
+      <label>
+        {registration.email} : <input type="email" name="email" placeholder={registration.placeholders.email} required />
+      </label>
+      <br>
+      <label>
+        {registration.password} : <input type="password" name="password" placeholder={registration.placeholders.password} required />
+      </label>
+
+      <br>
+
+      <label>
+        {registration.confirmPassword} : <input type="password" name="confirmPassword" placeholder={registration.placeholders.confirmPassword} required />
+      </label>
+
+      <br>
+
+      <button id="boh">{registration.registerButton}</button>
+  </form>
+
+</section>

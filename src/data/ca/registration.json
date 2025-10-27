@@ -1,0 +1,23 @@
+{
+    "title": "Registre",
+    "name": "Nom",
+    "surname": "Cognom",
+    "email": "Correu electrònic",
+    "password": "Contrasenya",
+    "confirmPassword": "Confirma la contrasenya",
+    "registerButton": "Registra't",
+    "placeholders": {
+        "name": "Introdueix el teu nom",
+        "surname": "Introdueix el teu cognom",
+        "email": "Introdueix el teu correu electrònic",
+        "password": "Introdueix la teva contrasenya",
+        "confirmPassword": "Confirma la teva contrasenya"
+    },
+    "errors": {
+        "nameToShort": "El nom d'usuari és massa curt.",
+        "surnameToShort": "El cognom és massa curt.",
+        "emailInvalid": "L'adreça de correu electrònic no és vàlida.",
+        "passwordsDoNotMatch": "Les contrasenyes no coincideixen.",
+        "passwordRequirements": "La contrasenya ha de tenir almenys 8 caràcters, una lletra majúscula, una lletra minúscula i un número."
+    }
+}

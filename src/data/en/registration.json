@@ -1,0 +1,23 @@
+{
+    "title": "Registration",
+    "name": "First Name",
+    "surname": "Last Name",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "registerButton": "Register",
+    "placeholders": {
+        "name": "Enter your first name",
+        "surname": "Enter your last name",
+        "email": "Enter your email",
+        "password": "Enter your password",
+        "confirmPassword": "Confirm your password"
+    },
+    "errors": {
+        "nameToShort": "The username is too short.",
+        "surnameToShort": "The surname is too short.",
+        "emailInvalid": "The email address is not valid.",
+        "passwordsDoNotMatch": "Passwords do not match.",
+        "passwordRequirements": "The password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, and a number."
+    }
+}
