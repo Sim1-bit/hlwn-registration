@@ -15,22 +15,27 @@ const { settings, registration, lang } = Astro.props
       <label>
         {registration.name} : <input type="text" name="name" placeholder={registration.placeholders.name} required />
       </label>
+      <p class="error" id="nameError"></p>
 
       <label>
         {registration.surname} : <input type="text" name="surname" placeholder={registration.placeholders.surname} required />
       </label>
+      <p class="error" id="surnameError"></p>
 
       <label>
         {registration.email} : <input type="email" name="email" placeholder={registration.placeholders.email} required />
       </label>
-      <br>
+      <p class="error" id="emailError"></p>
+
       <label>
         {registration.password} : <input type="password" name="password" placeholder={registration.placeholders.password} required />
       </label>
+      <p class="error" id="pwdError"></p>
 
       <label>
         {registration.confirmPassword} : <input type="password" name="confirmPassword" placeholder={registration.placeholders.confirmPassword} required />
       </label>
+      <p class="error" id="CpwdError"></p>
 
       <button id="btn">{registration.registerButton}</button>
   </form>
@@ -56,25 +61,36 @@ const { settings, registration, lang } = Astro.props
 
     if(!name || name.length < 3)
     {
-      console.log(registration.errors.nameToShort);
+      const pName = document.getElementById("nameError");
+      pName.innerHTML = registration.errors.nameToShort;
       numError++;
     }
 
     if(!surname || surname.length < 3)
     {
-      console.log(registration.errors.surnameToShort);
+      const pSurname = document.getElementById("surnameError");
+      pSurname.innerHTML = registration.errors.surnameToShort;
+      numError++;
+    }
+
+    if(!email)
+    {
+      const pEmail = document.getElementById("emailError");
+      pEmail.innerHTML = registration.errors.emailInvalid;
       numError++;
     }
 
     const regex = /^(?=.*\d)(?=.*[^a-zA-Z0-9]).*$/;
     if (!pwd || pwd.length < 8 || !regex.test(pwd)) 
     {
-      console.log(registration.errors.passwordRequirements);
+      const pPwd = document.getElementById("pwdError");
+      pPwd.innerHTML = registration.errors.passwordRequirements;
       numError++;
     }
     if(pwd !== cPwd)
     {
-      console.log(registration.errors.passwordsDoNotMatch);
+      const pCpwd = document.getElementById("CpwdError");
+      pCpwd.innerHTML = registration.errors.passwordsDoNotMatchs;
       numError++;
     }
 
@@ -166,6 +182,17 @@ form input {
   padding: 0.6rem 0.8rem;
   margin-top: 0.3rem;
   transition: all 0.25s ease;
+}
+
+/* === ERRORI FORM === */
+.error {
+  color: #ff4d4d;           /* rosso acceso */
+  font-family: 'Courier New', Courier, monospace; /* font diverso dal body */
+  font-size: 0.85rem;       /* leggermente più piccolo */
+  margin-top: 0.25rem;      /* spazio sopra */
+  margin-bottom: 0.75rem;   /* spazio sotto */
+  display: block;           /* assicurati che sia su una nuova riga */
+  font-style: italic;       /* leggermente inclinato */
 }
 
 form input::placeholder {
