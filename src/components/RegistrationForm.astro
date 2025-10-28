@@ -2,52 +2,6 @@
 import LanguageSwitcher from './LanguageSwitcher.astro'
 
 const { settings, registration, lang } = Astro.props
-
-const errors = { name: "", surname: "", email: "", password: "" };
-if (Astro.request.method === "POST") 
-{
-  try 
-  {
-    const data = await Astro.request.formData();
-    const name = data.get("name");
-    const surname = data.get("surname");
-    const email = data.get("email");
-    const password = data.get("password");
-    const confirmPassword = data.get("confirmPassword");
-    
-    if(typeof name !== "string" || name.length < 3)
-    {
-        errors.name += registration.errors.nameToShort;
-    }
-    if(typeof surname !== "string" || surname.length < 3)
-    {
-        errors.surname += registration.errors.surnameToShort;
-    }
-    if(typeof email !== "string")
-    {
-        errors.email += registration.errors.emailInvalid;
-    }
-    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/;
-    i
-    if (typeof confirmPassword !== "string" || password !== confirmPassword ) 
-    {
-      errors.password += registration.errors.passwordRequirements;
-    }
-    const hasErrors = Object.values(errors).some(msg => msg)
-    if (!hasErrors) 
-    {
-      await registerUser({name, surname, email, password});
-      return Astro.redirect("");
-    }
-  } 
-  catch (error) 
-  {
-    if (error instanceof Error) 
-    {
-      console.error(error.message);
-    }
-  }
-}
 ---
 <section>
   <br>
@@ -57,7 +11,7 @@ if (Astro.request.method === "POST")
   <br>
 
   <!-- Form di registrazione -->
-   <form method="POST" enctype="multipart/form-data">
+   <form id="form" data-registration={JSON.stringify(registration).replace(/</g, '\\u003c')}>
       <label>
         {registration.name} : <input type="text" name="name" placeholder={registration.placeholders.name} required />
       </label>
@@ -78,10 +32,81 @@ if (Astro.request.method === "POST")
         {registration.confirmPassword} : <input type="password" name="confirmPassword" placeholder={registration.placeholders.confirmPassword} required />
       </label>
 
-      <button id="boh">{registration.registerButton}</button>
+      <button id="btn">{registration.registerButton}</button>
   </form>
 
 </section>
+
+<script is:inline>
+
+  const form = document.getElementById("form");
+  const registration = JSON.parse(form.dataset.registration);
+
+  form.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    const name = form.name.value.trim();
+    const surname = form.surname.value.trim();
+    const email = form.email.value.trim();
+    const pwd = form.password.value;
+    const cPwd= form.confirmPassword.value;
+
+    let numError = 0;
+
+    if(!name || name.length < 3)
+    {
+      console.log(registration.errors.nameToShort);
+      numError++;
+    }
+
+    if(!surname || surname.length < 3)
+    {
+      console.log(registration.errors.surnameToShort);
+      numError++;
+    }
+
+    const regex = /^(?=.*\d)(?=.*[^a-zA-Z0-9]).*$/;
+    if (!pwd || pwd.length < 8 || !regex.test(pwd)) 
+    {
+      console.log(registration.errors.passwordRequirements);
+      numError++;
+    }
+    if(pwd !== cPwd)
+    {
+      console.log(registration.errors.passwordsDoNotMatch);
+      numError++;
+    }
+
+    if(numError !== 0)
+    {
+      return;
+    }
+
+    const mapOBJ = {
+      name,
+      surname,
+      email,
+      password: pwd,
+    };
+
+    try 
+    {
+      const response = await fetch('https://tuo-server-esterno.com/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(mapOBJ),
+      });
+
+      const data = await response.json();
+      console.log('Risposta server:', data);
+    } 
+    catch (err) 
+    {
+      console.error('Errore invio dati:', err);
+    }
+  });
+</script>
 
 <style is:global>
 @import url('https://fonts.googleapis.com/css2?family=Creepster&family=Inter:wght@400;600&display=swap');
