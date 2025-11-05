@@ -14,8 +14,8 @@
         "confirmPassword": "Conferma la tua password"
     },
     "errors": {
-        "nameToShort": "Il nome utente è troppo corto.",
-        "surnameToShort": "Il nome utente è troppo corto.",
+        "nameToShort": "Il nome è troppo corto.",
+        "surnameToShort": "Il cognome è troppo corto.",
         "emailInvalid": "L'indirizzo email non è valido.",
         "passwordsDoNotMatch": "Le password non corrispondono.",
         "passwordRequirements": "La password deve contenere almeno 8 caratteri, una lettera maiuscola, una lettera minuscola e un numero."

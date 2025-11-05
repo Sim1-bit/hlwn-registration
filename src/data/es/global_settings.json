@@ -1,17 +1,7 @@
 {
-  "title": "Halloween Fest – Estació de França (Barcelona) | Fenles",
-  "description": "La noche más grande de Halloween en Barcelona. Música, disfraces, luces y un venue único: Estació de França. Consigue tus entradas ahora.",
-  "base_url": "https://hlwnfest.com",
-  "theme_color": "#1b0b2e",
-  "social_image": "/content-images/social-halloween.jpg",
-  "demo": { "title": "Comprar entradas", "cta": "Comprar entradas" },
-  "nav": [
-    { "title": "Servicios", "link": "/#services" },
-    { "title": "Lineup", "link": "/#lineup" },
-    { "title": "FAQ", "link": "/#faq" }
-  ],
-  "social_links": [
-    { "title": "Instagram", "link": "https://instagram.com/fenles_official" },
-    { "title": "TikTok", "link": "https://tiktok.com/@fenles_official" }
-  ]
+  "title": "Centro Vida Sana - Registro",
+  "description": "Formulario de registro",
+  "base_url": "https://centrovidasana.com/",
+  "theme_color": "#FFFFFF",
+  "social_image": "/content-images/social-halloween.jpg"
 }

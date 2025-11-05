@@ -2,7 +2,7 @@
 @reference "./global.css";
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
   scroll-behavior: smooth;
   scroll-padding-top: 2em;
 }

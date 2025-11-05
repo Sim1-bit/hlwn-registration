@@ -20,53 +20,6 @@ const canonicalUrl = (settings.base_url ?? '/') + (lang === "es" ? "/" : `/${lan
 // OG
 const ogImage = (settings.base_url ?? '') + (settings.social_image ?? '')
 
-
-// JSON-LD Event
-const jsonLdEvent = {
-  "@context": "https://schema.org",
-  "@type": "Event",
-  "name": "HLWN FEST Barcelona 2025 – Halloween Party",
-  "startDate": "2025-10-31T19:00:00+02:00",
-  "endDate": "2025-11-01T02:30:00+02:00",
-  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-  "eventStatus": "https://schema.org/EventScheduled",
-  "location": { 
-    "@type": "Place", 
-    "name": "Estació de França", 
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Barcelona",
-      "addressCountry": "ES"
-    }
-  },
-  "image": [ogImage || `${settings.base_url}/default-image.jpg`],
-  "description": description || settings.description || "Festival di Halloween con concerti, DJ, rumba catalana e un’atmosfera immersiva nel cuore di Barcellona. Biglietti da 10 €.",
-  "offers": { 
-    "@type": "AggregateOffer", 
-    "lowPrice": "10", 
-    "highPrice": "15", 
-    "priceCurrency": "EUR", 
-    "url": "https://fenles.com/evento/halloween-fest-estacio-de-franca-barcelona-31-10-2025-estacio-de-franca",
-    "availability": "https://schema.org/InStock",
-    "validFrom": "2025-10-15T00:00:00+02:00"
-  },
-  "organizer": { 
-    "@type": "Organization", 
-    "name": "FENLES",
-    "url": "https://fenles.com/evento/halloween-fest-estacio-de-franca-barcelona-31-10-2025-estacio-de-franca"
-  },
-  "performer": [
-    { "@type": "MusicGroup", "name": "DJ Avezz" },
-    { "@type": "DanceGroup", "name": "Rumba Catalana" }
-  ]
-}
-
-// privacy path
-const privacyPath = lang === "en" ? "/en/privacy" : lang === "it" ? "/it/privacy" : lang === "ca" ? "/ca/privacy" : "/privacy";
-
-// Pixel config
-const pixelId = "1227221879138874"
-
 ---
 
 <html lang={lang}>
@@ -91,157 +44,29 @@ const pixelId = "1227221879138874"
     <link rel="alternate" href={settings.base_url + '/it/'} hreflang="it" />
     <link rel="alternate" href={settings.base_url + '/'} hreflang="x-default" />
 
-    <!-- Open Graph / Twitter -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content={ title ?? settings.title } />
-    <meta property="og:description" content={ description ?? settings.description } />
-    <meta property="og:url" content={ canonicalUrl } />
-    <meta property="og:image" content={ ogImage } />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={ title ?? settings.title } />
-    <meta name="twitter:description" content={ description ?? settings.description } />
-    <meta name="twitter:image" content={ ogImage } />
-
     <link rel="icon" type="image/svg" href="/favicon.svg" />
     <link rel="manifest" href="/manifest.json" />
 
     <Font cssVariable="--font-inter" preload />
     <Font cssVariable="--font-inter-display" preload />
 
-    <!-- JSON-LD Event -->
-    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLdEvent)} />
-
-
-    <!-- Consent helper + pixel loader -->
-    <script is:inline>
-      window.fenlesConsent = {
-        key:'fenles_consent_v1',
-        get(){try{const r=document.cookie.split('; ').find(x=>x.startsWith(this.key+'='));return r?JSON.parse(decodeURIComponent(r.split('=')[1])):{}}catch{return{}}},
-        set(o){const v=encodeURIComponent(JSON.stringify(o));const exp=new Date(Date.now()+31536e6).toUTCString();document.cookie=this.key+'='+v+'; Path=/; Expires='+exp+'; SameSite=Lax'},
-        clear(){document.cookie=this.key+'=; Max-Age=0; Path=/; SameSite=Lax'},
-        hasMarketing(){return !!this.get().marketing}, hasDecided(){return 'marketing' in this.get()}
-      };
-      window.loadMetaPixel=function(PID){
-        if(!(window.fbq&&window.fbq.loaded)){
-          (function(f,b,e,v,n,t,s){if(f.fbq)return;n=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};n.queue=[];n.loaded=true;n.version='2.0';t=b.createElement(e);t.async=true;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s);f._fbq=f._fbq||n;f.fbq=n;})(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-        }
-        window.fbq&&window.fbq('set','autoConfig',false,PID);
-        window.fbq&&window.fbq('disablePushState',true);
-        if(!window.__pixelInitialized){ window.fbq&&window.fbq('init',PID); window.__pixelInitialized=true; }
-        window.fbq&&window.fbq('track','PageView');
-      };
-    </script>
-
-    <!-- Cookie banner styles -->
-    <style>
-      .cookie-banner{ position:fixed;left:0;top:0;height:100%;width:100%;z-index:99999;background:rgba(16,16,26,.98);color:#e6e6f0;border-top:1px solid rgba(167,139,250,.25);padding:14px 16px;display:none;font-size:1.5rem;justify-content:center;align-items:center;text-align:center; }
-      .cookie-banner.show{ display:block; }
-      .cookie-banner .actions{ display:flex;gap:10px;flex-wrap:wrap;margin-top:10px; }
-      .btn-ghost{ background:#262636;color:#e6e6f0;border:1px solid #3b3b55;padding:10px 14px;border-radius:12px;font-size:1.1rem; }
-      .btn-primary{ background:#7c3aed;color:#fff;padding:10px 14px;border-radius:12px;border:0;font-size:1.3rem; }
-      .cookie-banner a{ color:#a78bfa;text-decoration: underline; }
-    </style>
   </head>
 
-  <body id="top">
+  <body id="top" class="... et_cover_background ...">
 
     <!-- bg image -->
     <Image
-      src={ bg_image } alt=""
-      format="webp"
+      src={ "https://centrovidasana.com/wp-content/uploads/2024/05/Centro-de-Naturopatia-y-Terapias-Naturales-vidasana-kinecuantica-11-scaled-1.jpg" } alt=""
+      format="jpg"
       height={1080} width={1920}
       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
-      class="fixed inset-0 -z-10 w-full h-full object-cover opacity-20"
-style="pointer-events:none"
+      class="fixed inset-0 -z-10 w-full h-full object-cover opacity-95"
+      style="pointer-events:none"
       loading="eager" />
 
     <!-- Main -->
     <main id="main">
       <slot />
     </main>
-
-    <!-- Accept / Reject / CTA tracking -->
-    <script is:inline>
-      window.__consentAccept=function(id){
-        try{var v=encodeURIComponent(JSON.stringify({necessary:true,marketing:true,ts:Date.now()}));
-          document.cookie='fenles_consent_v1='+v+'; Path=/; Expires='+new Date(Date.now()+31536e6).toUTCString()+'; SameSite=Lax';}catch(e){}
-        document.getElementById('cookieBanner')?.classList.remove('show');
-        (function(f,b,e,v,n,t,s){if(f.fbq)return;n=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-          n.queue=[];n.loaded=true;n.version='2.0';t=b.createElement(e);t.async=true;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s);f._fbq=f._fbq||n;f.fbq=n;
-        })(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-        window.fbq&&window.fbq('set','autoConfig',false,id);
-        window.fbq&&window.fbq('disablePushState',true);
-        if(!window.__pixelInitialized){ window.fbq&&window.fbq('init',id); window.__pixelInitialized=true; }
-        (function ensurePV(t){ if(window.fbq&&window.fbq.loaded){ window.fbq('track','PageView'); return; }
-          if((t||0)<30) setTimeout(function(){ensurePV((t||0)+1)},150);
-        })();
-        try{ new Image().src="https://www.facebook.com/tr?id=1227221879138874&ev=PageView&noscript=1"; }catch(_){}
-      };
-      window.__consentReject=function(){
-        try{var v=encodeURIComponent(JSON.stringify({necessary:true,marketing:false,ts:Date.now()}));
-          document.cookie='fenles_consent_v1='+v+'; Path=/; Expires='+new Date(Date.now()+31536e6).toUTCString()+'; SameSite=Lax';}catch(e){}
-        document.getElementById('cookieBanner')?.classList.remove('show');
-        try{ window.__pixelInitialized=false; delete window.fbq; delete window._fbq; }catch(_){}
-      };
-      document.addEventListener('click',function(e){
-        var btn=e.target.closest('a[data-cta]'); if(!btn) return;
-        try{var c=window.fenlesConsent.get(); if(c&&c.marketing&&window.fbq) window.fbq('track','InitiateCheckout',{value:0,currency:'EUR'});}catch(_){}
-      },{passive:true});
-    </script>
-
-    <!-- AUTO-SHOW banner (fix: aspetta il DOM o riprova finché esiste) -->
-    <script is:inline>
-      function showBanner() {
-        const key = 'fenles_consent_v1';
-        if (document.cookie.split('; ').some(c => c.startsWith(key + '='))) return;
-
-        const el = document.getElementById('cookieBanner');
-        if (el) {
-          el.classList.add('show');
-          return;
-        }
-
-        requestAnimationFrame(showBanner);
-      }
-
-      window.addEventListener('load', () => {
-        setTimeout(() => {
-          showBanner();
-        }, 3000);
-      });
-    </script>
-
-    <!-- Reveal on scroll -->
-    <script is:inline>
-      (function(){
-        var els = document.querySelectorAll('[data-reveal]');
-        if(!els.length) return;
-        var io = new IntersectionObserver((entries)=>{
-          entries.forEach(e=>{
-            if(e.isIntersecting){ e.target.classList.add('is-revealed'); io.unobserve(e.target); }
-          });
-        },{root:null,threshold:.08});
-        els.forEach(el=>io.observe(el));
-      })();
-    </script>
-
-    <!-- Cookie Banner -->
-    <div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie consent">
-      <div class="container">
-        <strong>Cookies & Privacy</strong>
-        <p style="margin:.4rem 0 0">
-          {lang === "it" ? "Usiamo cookie necessari e, previo consenso, cookie di marketing per analytics/ads." :
-           lang === "en" ? "We use necessary cookies and, with your consent, marketing cookies for analytics/ads." :
-           lang === "ca" ? "Utilitzem galetes necessàries i, amb el teu consentiment, galetes de màrqueting per a anàlisi/publicitat." :
-                           "Usamos cookies necesarios y, con tu consentimiento, cookies de marketing para analítica/ads."}
-          &nbsp;
-          <a href={privacyPath} target="_blank" rel="noopener">{lang === "it" ? "Privacy Policy" : lang === "en" ? "Privacy Policy" : lang === "ca" ? "Política de privacitat" : "Política de Privacidad"}</a>.
-        </p>
-        <div class="actions">
-          <button class="btn-ghost" onclick="window.__consentReject && window.__consentReject()">{lang === "it" ? "Rifiuta" : lang === "en" ? "Reject" : lang === "ca" ? "Rebutjar" : "Rechazar"}</button>
-          <button class="btn-primary" onclick={`window.__consentAccept && window.__consentAccept('${pixelId}')`}>{lang === "it" ? "Accetta tutto" : lang === "en" ? "Accept all" : lang === "ca" ? "Acceptar-ho tot" : "Aceptar todo"}</button>
-        </div>
-      </div>
-    </div>
   </body>
 </html>

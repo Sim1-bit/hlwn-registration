@@ -4,9 +4,7 @@ import LanguageSwitcher from './LanguageSwitcher.astro'
 const { settings, registration, lang } = Astro.props
 ---
 <section>
-  <br>
   <LanguageSwitcher lang={lang} />
-  <br>
   { registration.title && <h2 class="bs-h2 text-center" set:html={ registration.title } />}
   <br>
 
@@ -38,11 +36,24 @@ const { settings, registration, lang } = Astro.props
       <p class="error" id="CpwdError"></p>
 
       <button id="btn">{registration.registerButton}</button>
+      <p class="error" id="registerError"></p>
   </form>
 
 </section>
 
 <script is:inline>
+  function getDeviceId() 
+  {
+    // Se il browser supporta crypto.randomUUID, usalo
+    if (crypto?.randomUUID) {
+      return crypto.randomUUID();
+    }
+
+    // Fallback universale UUID se non disponibile
+    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c/4).toString(16)
+    );
+  }
 
   const form = document.getElementById("form");
   const registration = JSON.parse(form.dataset.registration);
@@ -58,40 +69,63 @@ const { settings, registration, lang } = Astro.props
     const cPwd= form.confirmPassword.value;
 
     let numError = 0;
+    const pName = document.getElementById("nameError");
+    const pSurname = document.getElementById("surnameError");
+    const pEmail = document.getElementById("emailError");
+    const pPwd = document.getElementById("pwdError");
+    const pCpwd = document.getElementById("CpwdError");
+    const pRegisterError = document.getElementById("registerError");
+
 
     if(!name || name.length < 3)
     {
-      const pName = document.getElementById("nameError");
       pName.innerHTML = registration.errors.nameToShort;
       numError++;
+    }
+    else
+    {
+      pName.innerHTML = "";
     }
 
     if(!surname || surname.length < 3)
     {
-      const pSurname = document.getElementById("surnameError");
       pSurname.innerHTML = registration.errors.surnameToShort;
       numError++;
     }
-
-    if(!email)
+    else
     {
-      const pEmail = document.getElementById("emailError");
+      pSurname.innerHTML = "";
+    }
+
+    if(!email || !email.includes("@"))
+    {
       pEmail.innerHTML = registration.errors.emailInvalid;
       numError++;
+    }
+    else
+    {
+      pEmail.innerHTML = "";
     }
 
     const regex = /^(?=.*\d)(?=.*[^a-zA-Z0-9]).*$/;
     if (!pwd || pwd.length < 8 || !regex.test(pwd)) 
     {
-      const pPwd = document.getElementById("pwdError");
       pPwd.innerHTML = registration.errors.passwordRequirements;
       numError++;
     }
+    else
+    {
+      pPwd.innerHTML = "";
+    }
+
     if(pwd !== cPwd)
     {
-      const pCpwd = document.getElementById("CpwdError");
-      pCpwd.innerHTML = registration.errors.passwordsDoNotMatchs;
+      pCpwd.innerHTML = registration.errors.passwordsDoNotMatch;
       numError++;
+    }
+    else
+    {
+      pCpwd.innerHTML = "";
     }
 
     if(numError !== 0)
@@ -99,15 +133,20 @@ const { settings, registration, lang } = Astro.props
       return;
     }
 
+    const deviceId = getDeviceId();
+
     const mapOBJ = {
-      name,
-      surname,
-      email,
+      username: email,
+      email: email,
       password: pwd,
+      firstName: name,
+      lastName : surname,
+      deviceId: deviceId,
     };
 
     try 
     {
+      console.log(JSON.stringify(mapOBJ));
       const response = await fetch('https://tuo-server-esterno.com/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -115,21 +154,21 @@ const { settings, registration, lang } = Astro.props
       });
 
       const data = await response.json();
-      console.log('Risposta server:', data);
+      pRegisterError.innerHTML = "";
     } 
     catch (err) 
     {
-      console.error('Errore invio dati:', err);
+      pRegisterError.innerHTML = err;
     }
   });
 </script>
 
 <style is:global>
-@import url('https://fonts.googleapis.com/css2?family=Creepster&family=Inter:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Inter:wght@400;600&display=swap');
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #000;
+  background-color: linear-gradient(90deg, #D2FCFE 0%, #f9c6ceff 100%);
   color: #e6e6f0;
 }
 
@@ -137,47 +176,33 @@ body {
 section {
   max-width: 420px;
   margin: 3rem auto;
-  padding: 2rem;
-  background: rgba(20, 20, 30, 0.9);
-  border: 1px solid rgba(143, 63, 255, 0.25);
+  padding: 0.5rem;
+  background: linear-gradient(90deg, #D2FCFE 0%, #F9C6D8 100%);
   border-radius: 1.25rem;
-  box-shadow: 0 0 20px rgba(143, 63, 255, 0.25);
-  animation: glowPulse 3s ease-in-out infinite;
-}
-
-/* Effetto bagliore viola alternato */
-@keyframes glowPulse {
-  0%, 100% {
-    box-shadow: 0 0 18px rgba(143, 63, 255, 0.35);
-  }
-  50% {
-    box-shadow: 0 0 28px rgba(255, 216, 51, 0.25);
-  }
 }
 
 /* === TITOLI === */
 .bs-h2 {
-  font-family: 'Creepster', cursive;
-  color: #ffd833;
+  font-family: 'Open+Sans', cursive;
+  color: #F05374;
   font-size: 2.2rem;
-  text-shadow: 0 0 8px rgba(255, 216, 51, 0.6);
+  text-shadow: 0 0 8px rgba(240, 83, 116, 0.6);
 }
 
 /* === LABELS === */
 form label {
-  display: block;
   margin-bottom: 1rem;
   font-weight: 600;
   font-size: 1rem;
-  color: #d4c9ff;
+  color: #F05374;
 }
 
 /* === INPUTS === */
 form input {
   width: 100%;
-  background: #1b1b1b;
-  color: #ffd833;
-  border: 1px solid rgba(143, 63, 255, 0.5);
+  background: #FFFFFF;
+  color: #5C5C5C;
+  border: 1px solid rgba(240, 83, 116, 0.5);
   border-radius: 0.5rem;
   padding: 0.6rem 0.8rem;
   margin-top: 0.3rem;
@@ -202,9 +227,9 @@ form input::placeholder {
 
 form input:focus {
   outline: none;
-  border-color: #8f3fff;
-  box-shadow: 0 0 10px rgba(143, 63, 255, 0.6);
-  background-color: #141414;
+  border-color: #D2FCFE;
+  box-shadow: 0 0 10px rgba(210, 252, 254, 0.6);
+  background-color: #e1e1e1ff;
   transform: scale(1.02);
 }
 
@@ -212,8 +237,8 @@ form input:focus {
 button {
   width: 100%;
   margin-top: 1rem;
-  background: linear-gradient(90deg, #8f3fff 0%, #ffd833 100%);
-  color: #000;
+  background: #F05374;
+  color: #FFFFFF;
   font-weight: 700;
   font-size: 1.1rem;
   border: none;
