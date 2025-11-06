@@ -18,6 +18,8 @@
         "surnameToShort": "Il cognome è troppo corto.",
         "emailInvalid": "L'indirizzo email non è valido.",
         "passwordsDoNotMatch": "Le password non corrispondono.",
-        "passwordRequirements": "La password deve contenere almeno 8 caratteri, una lettera maiuscola, una lettera minuscola e un numero."
-    }
+        "passwordRequirements": "La password deve contenere almeno 8 caratteri, una lettera maiuscola, una lettera minuscola e un numero.",
+        "emailAlreadyRegistered": "L'indirizzo email è già registrato."
+    },
+    "successMessage": "Registrazione avvenuta con successo!"
 }

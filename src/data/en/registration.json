@@ -18,6 +18,8 @@
         "surnameToShort": "The surname is too short.",
         "emailInvalid": "The email address is not valid.",
         "passwordsDoNotMatch": "Passwords do not match.",
-        "passwordRequirements": "The password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, and a number."
-    }
+        "passwordRequirements": "The password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, and a number.",
+        "emailAlreadyRegistered": "The email address is already registered."
+    },
+    "successMessage": "Registration successful!"
 }

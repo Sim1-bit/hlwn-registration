@@ -147,10 +147,11 @@ const { settings, registration, lang } = Astro.props
     try 
     {
       console.log(JSON.stringify(mapOBJ));
-      const response = await fetch('http://localhost:1337/api/usersv/auth/local/register', {
+      const response = await fetch('/api/usersv/auth/local/register', {
         method: 'POST',
         headers: {
-          'origin' : 'http://localhost:4321',
+          'accessToken': 'v1.2.12-a4585ef2-008a-4558-bb53-8ca9ed981e88',
+          'appVersion': '0.1.0',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(mapOBJ),

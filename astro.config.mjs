@@ -3,7 +3,12 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    server: {
+      proxy: {
+        '/api': 'http://localhost:1337',
+      },
+    },
   },
   experimental: {
     fonts: [{

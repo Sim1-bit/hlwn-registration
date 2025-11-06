@@ -18,6 +18,8 @@
         "surnameToShort": "El apellido es demasiado corto.",
         "emailInvalid": "La dirección de correo electrónico no es válida.",
         "passwordsDoNotMatch": "Las contraseñas no coinciden.",
-        "passwordRequirements": "La contraseña debe tener al menos 8 caracteres, incluir una letra mayúscula, una letra minúscula y un número."
-    }
+        "passwordRequirements": "La contraseña debe tener al menos 8 caracteres, incluir una letra mayúscula, una letra minúscula y un número.",
+        "emailAlreadyRegistered": "La dirección de correo electrónico ya está registrada."
+    },
+    "successMessage": "¡Registro exitoso!"
 }

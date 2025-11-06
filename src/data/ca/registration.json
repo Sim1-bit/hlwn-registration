@@ -18,6 +18,8 @@
         "surnameToShort": "El cognom és massa curt.",
         "emailInvalid": "L'adreça de correu electrònic no és vàlida.",
         "passwordsDoNotMatch": "Les contrasenyes no coincideixen.",
-        "passwordRequirements": "La contrasenya ha de tenir almenys 8 caràcters, una lletra majúscula, una lletra minúscula i un número."
-    }
+        "passwordRequirements": "La contrasenya ha de tenir almenys 8 caràcters, una lletra majúscula, una lletra minúscula i un número.",
+        "emailAlreadyRegistered": "L'adreça de correu electrònic ja està registrada."
+    },
+    "successMessage": "Registre amb èxit!"
 }
