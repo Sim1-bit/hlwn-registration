@@ -136,9 +136,9 @@ const { settings, registration, lang } = Astro.props
     const deviceId = getDeviceId();
 
     const mapOBJ = {
-      username: email,
       email: email,
       password: pwd,
+      username: email,
       firstName: name,
       lastName : surname,
       deviceId: deviceId,
@@ -147,18 +147,20 @@ const { settings, registration, lang } = Astro.props
     try 
     {
       console.log(JSON.stringify(mapOBJ));
-      const response = await fetch('https://tuo-server-esterno.com/api/register', {
+      const response = await fetch('http://localhost:1337/api/usersv/auth/local/register', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'origin' : 'http://localhost:4321',
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify(mapOBJ),
       });
-
       const data = await response.json();
-      pRegisterError.innerHTML = "";
+      pRegisterError.innerHTML = registration.successMessage;
     } 
     catch (err) 
     {
-      pRegisterError.innerHTML = err;
+      pRegisterError.innerHTML = registration.errors.emailAlreadyRegistered;
     }
   });
 </script>
