@@ -1,4 +1,4 @@
-# CENTRO VIDA SANA (Astro)
+# VIDA SANA– SIGN UP (Astro)
 
 Landing multilingua (ES/IT/EN/CA) con Meta Pixel + UTM propagation, GDPR banner e UI responsive.
 
