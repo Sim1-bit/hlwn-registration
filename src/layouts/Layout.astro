@@ -10,15 +10,9 @@ import "../assets/css/mobile.css"
 import { Font } from 'astro:assets'
 import Image from "astro/components/Image.astro"
 
-// bg hero
-import bg_image from "../assets/theme-images/locandina.webp"
-
 // Props
 const { title, description, settings, lang = "es" } = Astro.props
 const canonicalUrl = (settings.base_url ?? '/') + (lang === "es" ? "/" : `/${lang}/`)
-
-// OG
-const ogImage = (settings.base_url ?? '') + (settings.social_image ?? '')
 
 ---
 

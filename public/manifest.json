@@ -4,7 +4,7 @@
   "name": "blackspike astro landing page",
   "description": "A free Astro landing theme made with Tailwind to help kick start your Astro website.",
   "short_name": "blackspike astro theme",
-  "theme_color": "#18181B",
+  "theme_color": "#FFFFFF",
   "icons": [
     {
       "src": "/192.png",
