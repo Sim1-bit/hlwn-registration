@@ -167,11 +167,10 @@ const { settings, registration, lang } = Astro.props
 </script>
 
 <style is:global>
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Inter:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=MiraiRegular:wght@300;400;600&family=Inter:wght@400;600&display=swap');
 
 body {
-  font-family: 'Inter', sans-serif;
-  background-color: linear-gradient(90deg, #D2FCFE 0%, #f9c6ceff 100%);
+  font-family: 'Mirai', sans-serif;
   color: #e6e6f0;
 }
 
@@ -180,18 +179,14 @@ section {
   max-width: 420px;
   margin: 3rem auto;
   padding: 0.5rem;
-  background: /*linear-gradient(90deg, #D2FCFE 0%, #F9C6D8 100%)*/ #FFFFFF;
+  background: #FFFFFF;
   border-radius: 1.25rem;
 }
 
 /* === TITOLI === */
 .bs-h2 {
-  font-family: 'Mirai';
-  src: url('https://example.com/path/to/Mirai-Regular.woff2') format('woff2'),
-       url('https://example.com/path/to/Mirai-Regular.woff') format('woff');
   color: #F05374;
   font-size: 2.2rem;
-  text-shadow: 0 0 8px rgba(240, 83, 116, 0.6);
 }
 
 /* === LABELS === */
@@ -217,7 +212,6 @@ form input {
 /* === ERRORI FORM === */
 .error {
   color: #ff4d4d;           /* rosso acceso */
-  font-family: 'Courier New', Courier, monospace; /* font diverso dal body */
   font-size: 0.85rem;       /* leggermente più piccolo */
   margin-top: 0.25rem;      /* spazio sopra */
   margin-bottom: 0.75rem;   /* spazio sotto */
